@@ -8,21 +8,21 @@
 #------------------------------------------------------------
 
 CREATE TABLE USR(
-        USR_ROW_IDT Int  Auto_increment  NOT NULL ,
-        FST_NAM     Varchar (25) NOT NULL ,
-        LST_NAM     Varchar (25) NOT NULL ,
-        SEX         Varchar (20) NOT NULL ,
-        EML         Text ,
-        ADR         Varchar NOT NULL ,
-        CTY         Varchar (20) NOT NULL ,
-        PST_COD     Int NOT NULL ,
-        PHN_NBR     Varchar (15) NOT NULL ,
-        BTH_DAT     Date NOT NULL ,
-        PWD         Char (64) NOT NULL ,
-        TMP_PWD     Bool NOT NULL ,
-        PSD         Varchar (20)
+        ROW_IDT Int  Auto_increment  NOT NULL ,
+        FST_NAM Varchar (25) NOT NULL ,
+        LST_NAM Varchar (25) NOT NULL ,
+        SEX     Varchar (20) NOT NULL ,
+        EML     Text ,
+        ADR     Varchar NOT NULL ,
+        CTY     Varchar (20) NOT NULL ,
+        PST_COD Int NOT NULL ,
+        PHN_NBR Varchar (15) NOT NULL ,
+        BTH_DAT Date NOT NULL ,
+        PWD     Char (64) NOT NULL ,
+        TMP_PWD Bool NOT NULL ,
+        PSD     Varchar (20)
 	,CONSTRAINT USR_AK UNIQUE (PSD)
-	,CONSTRAINT USR_PK PRIMARY KEY (USR_ROW_IDT)
+	,CONSTRAINT USR_PK PRIMARY KEY (ROW_IDT)
 )ENGINE=InnoDB;
 
 
@@ -31,11 +31,11 @@ CREATE TABLE USR(
 #------------------------------------------------------------
 
 CREATE TABLE ROL(
-        ROL_ROW_IDT Int  Auto_increment  NOT NULL ,
-        RGT         Varchar (50) NOT NULL ,
-        NAM         Varchar (15) NOT NULL
+        ROW_IDT Int  Auto_increment  NOT NULL ,
+        RGT     Varchar (50) NOT NULL ,
+        NAM     Varchar (15) NOT NULL
 	,CONSTRAINT ROL_AK UNIQUE (NAM)
-	,CONSTRAINT ROL_PK PRIMARY KEY (ROL_ROW_IDT)
+	,CONSTRAINT ROL_PK PRIMARY KEY (ROW_IDT)
 )ENGINE=InnoDB COMMENT "RGT ->  Utilisateur Admin Super_Admin " ;
 
 
@@ -44,10 +44,10 @@ CREATE TABLE ROL(
 #------------------------------------------------------------
 
 CREATE TABLE PRY_CAT(
-        PRY_CAT_ROW_IDT Int  Auto_increment  NOT NULL ,
-        NAM             Varchar (30) NOT NULL
+        ROW_IDT Int  Auto_increment  NOT NULL ,
+        NAM     Varchar (30) NOT NULL
 	,CONSTRAINT PRY_CAT_AK UNIQUE (NAM)
-	,CONSTRAINT PRY_CAT_PK PRIMARY KEY (PRY_CAT_ROW_IDT)
+	,CONSTRAINT PRY_CAT_PK PRIMARY KEY (ROW_IDT)
 )ENGINE=InnoDB;
 
 
@@ -56,12 +56,12 @@ CREATE TABLE PRY_CAT(
 #------------------------------------------------------------
 
 CREATE TABLE CAT(
-        CAT_ROW_IDT     Int  Auto_increment  NOT NULL ,
+        ROW_IDT         Int  Auto_increment  NOT NULL ,
         NAM             Varchar (30) NOT NULL ,
-        PRY_CAT_ROW_IDT Int NOT NULL
-	,CONSTRAINT CAT_PK PRIMARY KEY (CAT_ROW_IDT)
+        ROW_IDT_PRY_CAT Int NOT NULL
+	,CONSTRAINT CAT_PK PRIMARY KEY (ROW_IDT)
 
-	,CONSTRAINT CAT_PRY_CAT_FK FOREIGN KEY (PRY_CAT_ROW_IDT) REFERENCES PRY_CAT(PRY_CAT_ROW_IDT)
+	,CONSTRAINT CAT_PRY_CAT_FK FOREIGN KEY (ROW_IDT_PRY_CAT) REFERENCES PRY_CAT(ROW_IDT)
 )ENGINE=InnoDB;
 
 
@@ -70,16 +70,16 @@ CREATE TABLE CAT(
 #------------------------------------------------------------
 
 CREATE TABLE PDT(
-        PDT_ROW_IDT Int  Auto_increment  NOT NULL ,
+        ROW_IDT     Int  Auto_increment  NOT NULL ,
         PCE         Real NOT NULL ,
         IMG         Text NOT NULL ,
         DSC         Text NOT NULL ,
         NAM         Varchar (50) NOT NULL ,
-        CAT_ROW_IDT Int NOT NULL
+        ROW_IDT_CAT Int NOT NULL
 	,CONSTRAINT PDT_AK UNIQUE (NAM)
-	,CONSTRAINT PDT_PK PRIMARY KEY (PDT_ROW_IDT)
+	,CONSTRAINT PDT_PK PRIMARY KEY (ROW_IDT)
 
-	,CONSTRAINT PDT_CAT_FK FOREIGN KEY (CAT_ROW_IDT) REFERENCES CAT(CAT_ROW_IDT)
+	,CONSTRAINT PDT_CAT_FK FOREIGN KEY (ROW_IDT_CAT) REFERENCES CAT(ROW_IDT)
 )ENGINE=InnoDB;
 
 
@@ -88,12 +88,12 @@ CREATE TABLE PDT(
 #------------------------------------------------------------
 
 CREATE TABLE CRT(
-        CRT_ROW_IDT Int  Auto_increment  NOT NULL ,
+        ROW_IDT     Int  Auto_increment  NOT NULL ,
         QTY         Int NOT NULL ,
-        USR_ROW_IDT Int NOT NULL
-	,CONSTRAINT CRT_PK PRIMARY KEY (CRT_ROW_IDT)
+        ROW_IDT_USR Int NOT NULL
+	,CONSTRAINT CRT_PK PRIMARY KEY (ROW_IDT)
 
-	,CONSTRAINT CRT_USR_FK FOREIGN KEY (USR_ROW_IDT) REFERENCES USR(USR_ROW_IDT)
+	,CONSTRAINT CRT_USR_FK FOREIGN KEY (ROW_IDT_USR) REFERENCES USR(ROW_IDT)
 )ENGINE=InnoDB;
 
 
@@ -102,12 +102,12 @@ CREATE TABLE CRT(
 #------------------------------------------------------------
 
 CREATE TABLE ROL_USR_LNK(
-        ROL_ROW_IDT Int NOT NULL ,
+        ROL_ROW_IDT     Int NOT NULL ,
         USR_ROW_IDT Int NOT NULL
-	,CONSTRAINT ROL_USR_LNK_PK PRIMARY KEY (ROL_ROW_IDT,USR_ROW_IDT)
+	,CONSTRAINT ROL_USR_LNK_PK PRIMARY KEY (ROW_IDT,ROW_IDT_USR)
 
-	,CONSTRAINT ROL_USR_LNK_ROL_FK FOREIGN KEY (ROL_ROW_IDT) REFERENCES ROL(ROL_ROW_IDT)
-	,CONSTRAINT ROL_USR_LNK_USR0_FK FOREIGN KEY (USR_ROW_IDT) REFERENCES USR(USR_ROW_IDT)
+	,CONSTRAINT ROL_USR_LNK_ROL_FK FOREIGN KEY (ROL_ROW_IDT) REFERENCES ROL(ROW_IDT)
+	,CONSTRAINT ROL_USR_LNK_USR0_FK FOREIGN KEY (USR_ROW_IDT) REFERENCES USR(ROW_IDT)
 )ENGINE=InnoDB;
 
 
@@ -116,11 +116,11 @@ CREATE TABLE ROL_USR_LNK(
 #------------------------------------------------------------
 
 CREATE TABLE CRT_PDT_LNK(
-        CRT_ROW_IDT Int NOT NULL ,
+        CRT_ROW_IDT     Int NOT NULL ,
         PDT_ROW_IDT Int NOT NULL
-	,CONSTRAINT CRT_PDT_LNK_PK PRIMARY KEY (CRT_ROW_IDT,PDT_ROW_IDT)
+	,CONSTRAINT CRT_PDT_LNK_PK PRIMARY KEY (ROW_IDT,ROW_IDT_PDT)
 
-	,CONSTRAINT CRT_PDT_LNK_CRT_FK FOREIGN KEY (CRT_ROW_IDT) REFERENCES CRT(CRT_ROW_IDT)
-	,CONSTRAINT CRT_PDT_LNK_PDT0_FK FOREIGN KEY (PDT_ROW_IDT) REFERENCES PDT(PDT_ROW_IDT)
+	,CONSTRAINT CRT_PDT_LNK_CRT_FK FOREIGN KEY (CRT_ROW_IDT) REFERENCES CRT(ROW_IDT)
+	,CONSTRAINT CRT_PDT_LNK_PDT0_FK FOREIGN KEY (PDT_ROW_IDT) REFERENCES PDT(ROW_IDT)
 )ENGINE=InnoDB;
 
