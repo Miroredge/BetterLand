@@ -2,12 +2,20 @@
 --        Script MySQL.
 -- ----------------------------------------------------------
 
+DROP TABLE IF EXISTS ROL_USR_LNK;
+DROP TABLE IF EXISTS ROL;
+DROP TABLE IF EXISTS CRT_PDT_LNK;
+DROP TABLE IF EXISTS CRT;
+DROP TABLE IF EXISTS PDT;
+DROP TABLE IF EXISTS CAT;
+DROP TABLE IF EXISTS PRY_CAT;
+DROP TABLE IF EXISTS USR;
 
 -- ----------------------------------------------------------
 -- Table: USR
 -- ----------------------------------------------------------
 
-DROP TABLE IF EXISTS USR;
+
 
 CREATE TABLE USR(
         ROW_IDT Integer  Auto_increment  NOT NULL ,
@@ -32,8 +40,6 @@ CREATE TABLE USR(
 -- Table: ROL
 -- ----------------------------------------------------------
 
-DROP TABLE IF EXISTS ROL;
-
 CREATE TABLE ROL(
         ROW_IDT Integer  Auto_increment  NOT NULL ,
         RGT     Varchar (50) NOT NULL ,
@@ -47,8 +53,6 @@ CREATE TABLE ROL(
 -- Table: PRY_CAT
 -- ----------------------------------------------------------
 
-DROP TABLE IF EXISTS PRY_CAT;
-
 CREATE TABLE PRY_CAT(
         ROW_IDT Integer  Auto_increment  NOT NULL ,
         NAM     Varchar (30) NOT NULL
@@ -61,23 +65,19 @@ CREATE TABLE PRY_CAT(
 -- Table: CAT
 -- ----------------------------------------------------------
 
-DROP TABLE IF EXISTS CAT;
-
 CREATE TABLE CAT(
         ROW_IDT         Integer  Auto_increment  NOT NULL ,
         NAM             Varchar (30) NOT NULL ,
         ROW_IDT_PRY_CAT Integer NOT NULL
 	,CONSTRAINT CAT_PK PRIMARY KEY (ROW_IDT)
 
-	,CONSTRAINT CAT_PRY_CAT_FK FOREIGN KEY (ROW_IDT_PRY_CAT) REFERENCES PRY_CAT(ROW_IDT)
+	,CONSTRAINT CAT_PRY_CAT_FK FOREIGN KEY (ROW_IDT_PRY_CAT) REFERENCES PRY_CAT(ROW_IDT) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 
 -- ----------------------------------------------------------
 -- Table: PDT
 -- ----------------------------------------------------------
-
-DROP TABLE IF EXISTS PDT;
 
 CREATE TABLE PDT(
         ROW_IDT     Integer  Auto_increment  NOT NULL ,
@@ -89,7 +89,7 @@ CREATE TABLE PDT(
 	,CONSTRAINT PDT_AK UNIQUE (NAM)
 	,CONSTRAINT PDT_PK PRIMARY KEY (ROW_IDT)
 
-	,CONSTRAINT PDT_CAT_FK FOREIGN KEY (ROW_IDT_CAT) REFERENCES CAT(ROW_IDT)
+	,CONSTRAINT PDT_CAT_FK FOREIGN KEY (ROW_IDT_CAT) REFERENCES CAT(ROW_IDT) 
 )ENGINE=InnoDB;
 
 
@@ -97,15 +97,13 @@ CREATE TABLE PDT(
 -- Table: CRT
 -- ----------------------------------------------------------
 
-DROP TABLE IF EXISTS CRT;
-
 CREATE TABLE CRT(
         ROW_IDT     Integer  Auto_increment  NOT NULL ,
         QTY         Integer NOT NULL ,
         ROW_IDT_USR Integer NOT NULL
 	,CONSTRAINT CRT_PK PRIMARY KEY (ROW_IDT)
 
-	,CONSTRAINT CRT_USR_FK FOREIGN KEY (ROW_IDT_USR) REFERENCES USR(ROW_IDT)
+	,CONSTRAINT CRT_USR_FK FOREIGN KEY (ROW_IDT_USR) REFERENCES USR(ROW_IDT) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 
@@ -113,15 +111,13 @@ CREATE TABLE CRT(
 -- Table: ROL_USR_LNK
 -- ----------------------------------------------------------
 
-DROP TABLE IF EXISTS ROL_USR_LNK;
-
 CREATE TABLE ROL_USR_LNK(
         ROL_ROW_IDT     Integer NOT NULL ,
         USR_ROW_IDT Integer NOT NULL
 	,CONSTRAINT ROL_USR_LNK_PK PRIMARY KEY (ROL_ROW_IDT,USR_ROW_IDT)
 
-	,CONSTRAINT ROL_USR_LNK_ROL_FK FOREIGN KEY (ROL_ROW_IDT) REFERENCES ROL(ROW_IDT)
-	,CONSTRAINT ROL_USR_LNK_USR0_FK FOREIGN KEY (USR_ROW_IDT) REFERENCES USR(ROW_IDT)
+	,CONSTRAINT ROL_USR_LNK_ROL_FK FOREIGN KEY (ROL_ROW_IDT) REFERENCES ROL(ROW_IDT) ON DELETE CASCADE
+	,CONSTRAINT ROL_USR_LNK_USR0_FK FOREIGN KEY (USR_ROW_IDT) REFERENCES USR(ROW_IDT) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 
@@ -129,14 +125,26 @@ CREATE TABLE ROL_USR_LNK(
 -- Table: CRT_PDT_LNK
 -- ----------------------------------------------------------
 
-DROP TABLE IF EXISTS CRT_PDT_LNK;
-
 CREATE TABLE CRT_PDT_LNK(
         CRT_ROW_IDT     Integer NOT NULL ,
         PDT_ROW_IDT Integer NOT NULL
 	,CONSTRAINT CRT_PDT_LNK_PK PRIMARY KEY (CRT_ROW_IDT,PDT_ROW_IDT)
 
-	,CONSTRAINT CRT_PDT_LNK_CRT_FK FOREIGN KEY (CRT_ROW_IDT) REFERENCES CRT(ROW_IDT)
-	,CONSTRAINT CRT_PDT_LNK_PDT0_FK FOREIGN KEY (PDT_ROW_IDT) REFERENCES PDT(ROW_IDT)
+	,CONSTRAINT CRT_PDT_LNK_CRT_FK FOREIGN KEY (CRT_ROW_IDT) REFERENCES CRT(ROW_IDT) ON DELETE CASCADE
+	,CONSTRAINT CRT_PDT_LNK_PDT0_FK FOREIGN KEY (PDT_ROW_IDT) REFERENCES PDT(ROW_IDT) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
+
+
+INSERT INTO `usr` (`ROW_IDT`, `FST_NAM`, `LST_NAM`, `SEX`, `EML`, `ADR`, `CTY`, `PST_COD`, `PHN_NBR`, `BTH_DAT`, `PWD`, `TMP_PWD`, `PSD`) VALUES
+(1, 'Maximilien', 'PONCET', 'Homme', 'maximilien.poncet19+BetterLand@gmail.com', '3, Rue Théodulf', 'Orléans', 45000, '+33782517500', '2004-01-19', 'fc01cf95e8eb513375e5ddcb33330923d69a4da66490548fdc0645d5dcdfeaa4', 0, 'Miroredge_01'),
+(130, 'Nicolas', 'PONCET', 'Homme', 'nicolas.poncet+PaperLandProject@gmail.com', '3, Rue Monsieur Oui', 'Orléans', 45000, '+33765434567', '1978-07-13', 'fcba8051ec9c89dfa788d2e093b54765629bc153237a2a4d26c0ae959500b4c5', 0, 'Astenor');
+
+INSERT INTO `rol` (`ROW_IDT`, `RGT`, `NAM`) VALUES
+(1, 50, 'User'),
+(2, 1, 'Admin'),
+(3, 0, 'SuperAdmin');
+
+INSERT INTO `rol_usr_lnk` (`ROL_ROW_IDT`, `USR_ROW_IDT`) VALUES
+(1, 1),
+(1, 130);
