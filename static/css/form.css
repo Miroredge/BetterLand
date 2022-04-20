@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'logo-paperland';
+    src: url('../font/MelodySouthern-Script.otf');
+}
+
+body {
+    margin: 0;
+    padding: 5px;
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section {
+    padding: 0;
+    margin: 0;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    user-select: none;
+}
+
+h2 {
+    margin: 0;
+    font-size: 1.8em;
+    user-select: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+strong {
+    color: crimson;
+    font-size: 0.8em;    
+}
+
+var {
+    color: grey;
+    font-size: 0.8em;   
+}
+
+input, select {
+    width: 100%;
+    padding: 4px;
+    padding-left: 6px;
+    margin-top: 1px;
+    box-sizing: border-box;
+    border: 1px solid gray; 
+    border-radius: 3px;
+
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1em;
+}
+
+input:invalid {
+    border: 0.2em solid crimson;
+}
+
+.flashes a.error{
+    color:rgb(255, 101, 101);
+    font-weight: bold;
+}
+
+.div-form {
+    border: 1px solid;
+    border-color: lightgray;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 0;
+    background-color: whitesmoke;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.item-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    width: fit-content;
+}
+
+.label-form {
+    font-size: 1.2em;    
+}
+
+.button-form {
+    margin-top: 10px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1.2em;
+}
+
+.button-form:hover {
+    cursor:pointer;
+    border-color: red;
+}
+
+#annotations {
+    font-size: 0.8em;
+    padding-top: 0.6em;
+}
+
+#carac-min {
+    font-size: 0.5em;
+}
+
+#password-form {
+    font-size: 1.2em;
+}
+
+#sexe:invalid {
+    border: 0.2em solid crimson;
+}
+
+#delete-account:invalid {
+    border: 0.2em solid crimson;
+}
+
+#value-list:invalid {
+    border: 0.2em solid crimson;
+}
+
+#retour-index-admin {
+    text-decoration: none;
+    color: black;
+}
+
+#retour-index-admin:hover {
+    color: cornflowerblue;
+}

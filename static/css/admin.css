@@ -1,0 +1,298 @@
+@font-face {
+    font-family: 'logo-paperland';
+    src: url('../font/MelodySouthern-Script.otf');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+
+#title-page {
+    text-decoration: none;
+    color: black;
+    user-select: none;
+    font-family: 'logo-paperland';
+    align-content: center;
+}
+.cat-view-column-0 {
+    width: 30%;
+    font-family: verdana;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 7px;
+    justify-content: center;
+    text-align: center;
+}
+.cat-view-column-1 {
+    width: 70%;
+    font-family: verdana;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 7px;
+    text-align: center;
+}
+.product-view-column-0 {
+    width: 5%;
+    font-family: verdana;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 7px;
+    justify-content: center;
+    text-align: center;
+}
+.product-view-column-1 {
+    width: 20%;
+    font-family: verdana;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 7px;
+}
+.product-view-column-1 a{
+    text-decoration: none;
+    color: black;
+}
+.product-view-column-1 a:hover {
+    text-decoration: underline;
+}
+
+.product-view-column-2 {
+    width: 10%;
+    font-family: verdana;
+    text-align: center;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 7px;
+}
+
+.product-view-column-3 {
+    width: 5%;
+    font-family: verdana;
+    text-align: center;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 7px;
+}
+
+.product-view-column-4 {
+    width: 10%;
+    font-family: verdana;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 7px;
+}
+
+.product-view-column-4 img{
+    border-radius: 7px;
+}
+
+.product-view-column-5 {
+    width: 45%;
+    font-family: verdana;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 7px;
+}
+.admin-view-column-1 {
+    width: 100%;
+    justify-content: space-around;
+}
+
+#row-admin-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.menu {
+    font-family: Verdana;
+    display: flex;
+    flex-direction: column;
+    margin: 30px 10% 30px 10%;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    padding: 3%;
+    user-select: none;
+}
+.menu ul {
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.menu ul li {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    font-weight: bold;
+}
+.menu-products, .menu-categories, .menu-parent-categories, .menu-roles, .menu-users {
+    list-style-type: none;
+    border: 2px solid;
+    border-color: lightgray;
+    border-radius: 10px;
+}
+
+#title-cat {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    border-width: 3px;
+    border-style: outset;
+    border-color: lightgray;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+
+#leave a{
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    border-width: 3px;
+    border-style: outset;
+    border-color: lightgray;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: white;
+    align-self: flex-start;
+}
+#leave a:hover {
+    background-color: rgb(184, 159, 90);
+} 
+
+
+
+
+/* GESTION DES COULEURS / DES LIENS  */
+
+#leave-menu-admin {
+    text-decoration: none;
+    color: var(--DATA_COLOR_LIENS);
+}
+#leave-menu-admin:hover {
+    color: mediumvioletred;
+}
+#retour-index-admin {
+    text-decoration: none;
+    color: var(--DATA_COLOR_LIENS);
+}
+#retour-index-admin:hover {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+#view-products:hover {
+    color: var(--DATA_COLOR_VIEW)
+}
+#modify-product:hover {
+    color: var(--DATA_COLOR_MODIFY)
+}
+#add-product:hover {
+    color: var(--DATA_COLOR_ADD)
+}
+#delete-product:hover {
+    color: var(--DATA_COLOR_DELETE)
+}
+#view-categories:hover {
+    color: var(--DATA_COLOR_VIEW)
+}
+#add-category:hover {
+    color: var(--DATA_COLOR_ADD)
+}
+#delete-category:hover {
+    color: var(--DATA_COLOR_DELETE)
+}
+#modify-category:hover {
+    color: var(--DATA_COLOR_MODIFY)
+}
+#view-parent-categories:hover {
+    color: var(--DATA_COLOR_VIEW)
+}
+#add-parent-category:hover {
+    color: var(--DATA_COLOR_ADD)
+}
+#modify-parent-category:hover {
+    color: var(--DATA_COLOR_MODIFY)
+}
+#delete-parent-category:hover {
+    color: var(--DATA_COLOR_DELETE)
+}
+#view-roles:hover {
+    color: var(--DATA_COLOR_VIEW)
+}
+#add-role:hover {
+    color: var(--DATA_COLOR_ADD)
+}
+#delete-role:hover {
+    color: var(--DATA_COLOR_DELETE)
+}
+#modify-role:hover {
+    color: var(--DATA_COLOR_MODIFY)
+}
+#view-users:hover {
+    color: var(--DATA_COLOR_VIEW)
+}
+#add-user:hover {
+    color: var(--DATA_COLOR_ADD)
+}
+#modify-user:hover {
+    color: var(--DATA_COLOR_MODIFY)
+}
+#delete-user:hover {
+    color: var(--DATA_COLOR_DELETE)
+}
+#delete-category, #modify-category, #add-category, #view-categories, #delete-product, #modify-product, #add-product, #view-products, #view-parent-categories, #add-parent-category, #modify-parent-category, #delete-parent-category, #view-roles, #add-role, #delete-role, #modify-role, #view-users, #add-user, #delete-user, #modify-user {
+    text-decoration: none;
+    color: var(--DATA_COLOR_LIENS);
+    width: max-content;
+}
+
+#leave-menu-admin, #leave-menu-admin:hover, #view-products ,#view-products:hover , #modify-product, #modify-product:hover, #add-product, #add-product:hover, #delete-product, #delete-product:hover, #view-categories, #view-categories:hover, #add-category, #add-category:hover, #delete-category, #delete-category:hover,#modify-category, #modify-category:hover, #view-parent-categories, #view-parent-categories:hover, #add-parent-category, #add-parent-category:hover, #modify-parent-category, #modify-parent-category:hover, #delete-parent-category, #delete-parent-category:hover, #view-roles, #view-roles:hover, #add-role, #add-role:hover, #delete-role, #delete-role:hover, #modify-role, #modify-role:hover, #view-users, #view-users:hover, #add-user, #add-user:hover,#modify-user, #modify-user:hover #delete-user, #delete-user:hover {
+    --DATA_COLOR_LIENS: black;
+    --DATA_COLOR_MODIFY : blue;
+    --DATA_COLOR_ADD : rgb(0, 224, 0);
+    --DATA_COLOR_DELETE : crimson;
+    --DATA_COLOR_VIEW : grey;
+}
+
+.infos-admin {
+    font-family: Verdana;
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    width: 100%;
+}
+
+.infos-admin ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    border-radius: 15px;
+    user-select: none;
+    padding: 3%;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    font-weight: bold;
+}
+h3#infos {
+    margin-top: 0%;
+}
+
+#response {
+    color: rgb(184, 159, 90);
+    display: contents;
+}
+#response_err {
+    color: rgb(255, 0, 0);
+}
+
+/* /////////////////////////////////////////////////////////////////////////// FOR SCREENS < 650 px ///////////////////////////////////////////////////////////////////////////////// */
+
+
+@media (max-width: 650px) 
+{
+    #delete-category, #modify-category, #add-category, #view-categories, #delete-product, #modify-product, #add-product, #view-products, #view-parent-categories, #add-parent-category, #delete-parent-category, #view-roles, #add-role, #delete-role, #modify-role, #view-users, #add-user, #delete-user {
+        inline-size: 190px;
+        overflow-wrap: break-word;
+    }
+}
+
+/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ END FOR SCREENS < 650 px \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */

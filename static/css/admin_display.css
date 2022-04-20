@@ -1,0 +1,207 @@
+
+@font-face {
+    font-family: 'logo-paperland';
+    src: url('../font/MelodySouthern-Script.otf');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+}
+
+table {
+    width: 100%;
+    border-radius: 7px;
+    text-align: center;
+    border-color: rgb(0, 128, 255);
+}
+
+th {
+    color: rgb(207, 140, 222);
+    background-color: rgb(0, 0, 101);
+    font-family: Verdana;
+    font-weight: normal;
+    font-size: 20px;
+    border-color: rgb(0, 128, 255);
+    padding-inline: 5px;
+}
+
+td {
+    width: 1%;
+    max-width: 0;
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    border-color: rgb(0, 128, 255);
+    padding-inline: 5px;
+}
+
+td a {
+    color: grey;
+    text-decoration: none;
+}
+
+a#a:hover {
+    color: green;
+}
+
+a#m:hover {
+    color: blue;
+}
+
+a#s:hover {
+    color: red;
+}
+
+td img {
+    height: 100%;
+    width: 100% ;
+}
+.Image {
+    width: 5%;
+}
+
+.Pseudo {
+    width: 10%;
+}
+
+.Nom {
+    width: 25%;
+}
+
+.Nom_Cat {
+    width: 5%;
+}
+
+.Nom_P_Cat {
+    width: 5%;
+}
+
+.Rôle {
+    width: 16%;
+}
+
+.Email {
+    width: 25%;
+}
+
+.Description {
+    width: 20%;
+}
+.Tél {
+    width: 15%;
+}
+
+.CP {
+    width: 4%;
+}
+
+.Ville {
+    width: 4%;
+}
+
+.Nom p, .Pseudo p, .Rôle p, .Email p, .Description p, .Tél p, .Ville p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: "..";
+    direction: ltr;
+}
+
+.ID {
+    width: 1%;
+    color: rgb(207, 140, 222);
+    font-weight: bolder;
+    background-color: rgb(0, 0, 152);
+    border-color: rgb(0, 128, 255);
+
+}
+
+.NULL {
+    background-color: rgb(138, 138, 138);
+}
+
+.infos-admin {
+    font-family: Verdana;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(245, 245, 245, 0);
+    width: 100%;
+}
+
+.infos-admin ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    border-radius: 15px;
+    user-select: none;
+    padding: 3%;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    font-weight: bold;
+}
+h3#infos {
+    margin-top: 0%;
+}
+
+#response {
+    color: rgb(184, 159, 90);
+    display: contents;
+}
+#response_err {
+    color: rgb(255, 0, 0);
+}
+
+#div-ftr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.retour-index {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#retour-index-admin {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    border-width: 3px;
+    border-style: outset;
+    border-color: lightgray;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: white;
+}
+#retour-index-admin:hover {
+    background-color: rgb(184, 159, 90);
+}
+
+.ajouter-obj {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+#ajouter-obj {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    border-width: 3px;
+    border-style: outset;
+    border-color: lightgray;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: white;
+}
+#ajouter-obj:hover {
+    background-color: rgb(184, 159, 90);
+}
