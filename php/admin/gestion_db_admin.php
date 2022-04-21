@@ -29,7 +29,7 @@
         }
         if ($table_formatted == 'products') 
         {
-            $sql = "SELECT `pdt`.ROW_IDT ID, `pdt`.NAM Nom, `cat`.NAM Nom_Cat, `pry_cat`.NAM Nom_P_Cat, `pdt`.IMG Image, `pdt`.DSC Description FROM `pdt` INNER JOIN `cat` ON (`pdt`.ROW_IDT_CAT = `cat`.ROW_IDT) INNER JOIN `pry_cat` ON (`cat`.ROW_IDT_PRY_CAT = `pry_cat`.ROW_IDT)";
+            $sql = "SELECT `pdt`.ROW_IDT ID, `pdt`.NAM Nom, `pdt`.PCE Prix, `cat`.NAM Nom_Cat, `pry_cat`.NAM Nom_P_Cat, `pdt`.IMG Image, `pdt`.DSC Description FROM `pdt` INNER JOIN `cat` ON (`pdt`.ROW_IDT_CAT = `cat`.ROW_IDT) INNER JOIN `pry_cat` ON (`cat`.ROW_IDT_PRY_CAT = `pry_cat`.ROW_IDT)";
         }
 
         $result = $conn -> query($sql);
@@ -188,6 +188,81 @@
         return true;
     }
 
+    function update_role($array, $role_id)
+    {
+        foreach ($array as $key => $value)
+        {   
+            if ($key == 'rol_name')  
+            {
+                $rol_name = mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+                update_row_global_tables('rol', 'NAM', $rol_name, 'ROW_IDT', $role_id);
+            }
+
+            if ($key == 'rol_rights')  
+            {
+                update_row_global_tables('rol', 'RGT', $value, 'ROW_IDT', $role_id);
+            }
+        }
+        return true;
+    }
+
+    function update_p_cat($array, $p_cat_id)
+    {
+        foreach ($array as $key => $value)
+        {   
+            if ($key == 'pry_cat_name')  
+            {
+                update_row_global_tables('pry_cat', 'NAM', $value, 'ROW_IDT', $p_cat_id);
+            }
+        }
+        return true;
+    }
+
+    function update_cat($array, $cat_id)
+    {
+        foreach ($array as $key => $value)
+        {
+            if ($key == 'cat_name')
+            {
+                update_row_global_tables('cat', 'NAM', $value, 'ROW_IDT', $cat_id);
+            }
+            if ($key == 'name_pry_cat')  
+            {
+                update_row_global_tables('cat', 'ROW_IDT_PRY_CAT', $value, 'ROW_IDT', $cat_id);
+            }
+        }
+        return true;
+    }
+    
+    function update_product($array, $product_id)
+    {
+        foreach ($array as $key => $value)
+        {
+            if ($key == 'product_name')
+            {
+                update_row_global_tables('pdt', 'NAM', $value, 'ROW_IDT', $product_id);
+            }
+            if ($key == 'name_cat')  
+            {
+                update_row_global_tables('pdt', 'ROW_IDT_CAT', $value, 'ROW_IDT', $product_id);
+            }
+            if ($key == 'price')  
+            {
+                $price_translated_with_comma = str_replace(',', '.', $value);
+                update_row_global_tables('pdt', 'PCE', $price_translated_with_comma, 'ROW_IDT', $product_id);
+            }
+            if ($key == 'image')  
+            {
+                update_row_global_tables('pdt', 'IMG', $value, 'ROW_IDT', $product_id);
+            }
+            if ($key == 'description')  
+            {
+                update_row_global_tables('pdt', 'DSC', $value, 'ROW_IDT', $product_id);
+            }
+        }
+        return true;
+    }
+
     function add_user_by_admin($post)
     {
         $conn = $GLOBALS['connection'];
@@ -322,10 +397,10 @@
         {
             if (check_value_global_tables('pdt', 'nam', $pdt_nam) == true)
             {
-                $query = $conn -> prepare("INSERT INTO `pry_cat` (NAM) VALUES (?)");
-                $query -> bind_param('s', $pdt_nam);
+                $query = $conn -> prepare("INSERT INTO `pdt` (NAM, ROW_IDT_CAT, PCE, IMG, DSC) VALUES (?, ?, ?, ?, ?)");
+                $query -> bind_param('siiss', $pdt_nam, $cat_id, $pdt_pce, $pdt_img, $pdt_des);
                 $query -> execute();
-    
+
                 $_SESSION["info"] = "Le produit : " . $pdt_nam . " a bien été ajoutée." ;
                 header("Location:/php/admin/display.php?table=products");
             }
@@ -380,6 +455,28 @@
         }
     }
 
+    function get_products_availaible()
+    {
+        $conn = $GLOBALS['connection'];
+
+        $sql = "SELECT ROW_IDT ID, NAM Nom FROM `pdt` ORDER BY ROW_IDT ASC";
+        $result = $conn -> query($sql);
+
+        if($result == false)
+        {
+            exit("Veuillez contacter un administrateur.");
+        }
+        else 
+        {
+            $cats = array();
+            while($row = $result -> fetch_assoc())
+            {
+                $cats[] = $row;
+            }
+            return $cats;
+        }
+    }
+
     function get_roles_availaible()
     {
         $conn = $GLOBALS['connection'];
@@ -403,6 +500,28 @@
         
     }
 
+    function get_users_availaible()
+    {
+        $conn = $GLOBALS['connection'];
+
+        $sql = "SELECT ROW_IDT ID, PSD Nom FROM `usr` ORDER BY ROW_IDT ASC";
+        $result = $conn -> query($sql);
+
+        if ($result == false)
+        {
+            exit("Veuillez contacter l'administrateur");
+        }
+        else
+        {
+            $users = array();
+            while ($row = $result -> fetch_assoc())
+            {
+                $users[] = $row;
+            }
+            return $users;
+        }        
+    }
+
     function display_roles_form($array)
     {
         foreach ($array as $key => $value) 
@@ -411,7 +530,7 @@
         }
     }
 
-    function display_pry_cats_and_cats_form($array)
+    function display_form($array)
     {
         foreach ($array as $key => $value) 
         {
@@ -474,7 +593,7 @@
                 if ($name == 'products')
                 {
                     echo '<td><a id=m href=/php/admin/modify.php?table=products&id=' . $row['ID'] . '>Modifier</a></th>';
-                    echo '<td><a id=a href=/php/admin/delete.php?table=products&id=' . $row['ID'] . '>Supprimer</a></th>'; 
+                    echo '<td><a id=s href=/php/admin/delete.php?table=products&id=' . $row['ID'] . '>Supprimer</a></th>'; 
                 }
                 
             echo '</tr>';
@@ -482,22 +601,43 @@
         echo'</table>';
     }
 
-    function french_translate($str)
+    function french_translate($str, $plu = false)
     {
-        if ($str == "users") {
-            return "un utilisateur";
+        if ($plu == false) 
+        {
+            if ($str == "users") {
+                return "un utilisateur";
+            }
+            if ($str == "roles") {
+                return "un rôle";
+            }
+            if ($str == "primary_cats") {
+                return "une catégorie mère";
+            }
+            if ($str == "categories") {
+                return "une catégorie";
+            }
+            if ($str == "products") {
+                return "un produit";
+            }
         }
-        if ($str == "roles") {
-            return "un rôle";
-        }
-        if ($str == "primary_cats") {
-            return "une catégorie mère";
-        }
-        if ($str == "categories") {
-            return "une catégorie";
-        }
-        if ($str == "products") {
-            return "un produit";
+        else
+        {
+            if ($str == "users") {
+                return "les utilisateurs";
+            }
+            if ($str == "roles") {
+                return "les rôles";
+            }
+            if ($str == "primary_cats") {
+                return "les catégories mères";
+            }
+            if ($str == "categories") {
+                return "les catégories";
+            }
+            if ($str == "products") {
+                return "les produits";
+            }
         }
         return $str;
     }

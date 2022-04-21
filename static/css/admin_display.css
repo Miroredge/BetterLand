@@ -66,6 +66,10 @@ td img {
     width: 5%;
 }
 
+.Prix {
+    width: 5%;
+}
+
 .Pseudo {
     width: 10%;
 }
@@ -96,7 +100,6 @@ td img {
 .Tél {
     width: 15%;
 }
-
 .CP {
     width: 4%;
 }
@@ -105,7 +108,7 @@ td img {
     width: 4%;
 }
 
-.Nom p, .Pseudo p, .Rôle p, .Email p, .Description p, .Tél p, .Ville p {
+.Nom p, .Pseudo p, .Rôle p, .Email p, .Description p, .Tél p, .Ville p, .Prix p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: "..";

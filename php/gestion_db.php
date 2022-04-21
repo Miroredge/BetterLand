@@ -93,6 +93,7 @@
 
         if ($result === false) 
         {
+            exit(mysqli_error($conn));
             exit("Veuillez Contacter l'administrateur");
         }
         else
@@ -601,11 +602,68 @@
         }
     }
 
+    function get_products_from_cat($cat) 
+    {
+        $conn = $GLOBALS['connection'];
+
+        $sql = "SELECT `PDT`.ROW_IDT ID, `CAT`.ROW_IDT C_ID, `PRY_CAT`.ROW_IDT PC_ID, `PDT`.NAM Nom FROM `PDT` INNER JOIN `CAT` ON (`PDT`.ROW_IDT_CAT = `CAT`.ROW_IDT) INNER JOIN `PRY_CAT` ON (`CAT`.ROW_IDT_PRY_CAT = `PRY_CAT`.ROW_IDT) WHERE `CAT`.NAM = '" . $cat . "';";
+        $result = $conn -> query($sql);
+
+        if ($result === false) 
+        {
+            exit("Veuillez Contacter l'administrateur");
+        }
+        else
+        {
+            $products = array();
+            
+            while ($row = $result -> fetch_assoc()) 
+            {
+                $products[] = $row;
+            }
+            return $products;
+        }
+    }
+
     function display_header () 
     {
         display_parent_categories(get_parent_categories());
     }
     
+    function display_child_index($array)
+    {
+        if (!empty($array)) 
+        {
+            foreach ($array as $key => $value) 
+            {
+                echo '<div class="article-product">';
+                echo '<a class="object" href=/php/display.php?p_cat='. $value['P_ID'] . "&cat=" . $value['ID'] . ">" . mb_convert_case(str_replace("_", " ", $value['Nom']), MB_CASE_TITLE, "UTF-8") . '</a>';
+                echo '</div>';
+            }
+        }
+        else
+        {
+            echo '<h2>Aucune sous-catégorie trouvée</h2>';
+        }
+    }
+
+    function display_products_index($array)
+    {
+        if (!empty($array)) 
+        {
+            foreach ($array as $key => $value) 
+            {
+                echo '<div class="article-product">';
+                echo '<a class="object" href=/php/display.php?p_cat='. $value['PC_ID'] . "&cat=" . $value['C_ID'] . "&pdt=" . $value['ID'] . ">" . mb_convert_case(str_replace("_", " ", $value['Nom']), MB_CASE_TITLE, "UTF-8") . '</a>';
+                echo '</div>';
+            }
+        }
+        else
+        {
+            echo '<h2>Aucun produit trouvé dans cette catégorie</h2>';
+        }
+    }
+
     function display_parent_categories($array)
     {
         foreach ($array as $key => $value) 
@@ -626,7 +684,7 @@
         echo '<div class="contenu-deroullant">';
         foreach ($array as $key => $value) 
         {
-            echo '<a href=/php/display?p_cat='. $value['P_ID'] . "&cat=" . $value['ID'] . ">" . mb_convert_case(str_replace("_", " ", $value['Nom']), MB_CASE_TITLE, "UTF-8") . '</a>';
+            echo '<a href=/php/display.php?p_cat='. $value['P_ID'] . "&cat=" . $value['ID'] . ">" . mb_convert_case(str_replace("_", " ", $value['Nom']), MB_CASE_TITLE, "UTF-8") . '</a>';
         }
         echo '</div>';
         // type : <a href="/fournitures/trousses/">Trousses</a>

@@ -133,125 +133,125 @@
                             <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
                         </div>
                     </form>                   
-                    <?php } ?>
-                    <?php if($table == "roles") { ?>
-                        <h2>Ajouter un Rôle</h2>
-                        <form action="/php/admin/add.php?table=roles" method="POST" class="form"> 
-                            <div class="item-form">
-                                <div class="flashes">
-                                    <a class="error"><?= $errmsg ?></a>
-                                </div>
+                <?php } ?>
+                <?php if($table == "roles") { ?>
+                    <h2>Ajouter un Rôle</h2>
+                    <form action="/php/admin/add.php?table=roles" method="POST" class="form"> 
+                        <div class="item-form">
+                            <div class="flashes">
+                                <a class="error"><?= $errmsg ?></a>
                             </div>
-                            <div class="item-form">
-                                <label class="label-form">Nom<strong>*</strong><var>-20:Caractères maximum-</var></label>
-                                <input type="text" name="rol_name" class="input-form" pattern="([A-Z]|[a-z])\S+" required minlength="3" maxlength="20" autocomplete="off" title="Compris entre 3 et 20 caractères sans espaces"/>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Nom<strong>*</strong><var>-20:Caractères maximum-</var></label>
+                            <input type="text" name="rol_name" class="input-form" pattern="([A-Z]|[a-z])\S+" required minlength="3" maxlength="20" autocomplete="off" title="Compris entre 3 et 20 caractères sans espaces"/>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Droits<strong>*</strong><var>-Nombre [0-49] : 50 = User-</var></label>
+                            <input type="text" name="rol_rights" class="input-form" pattern="([0-4][0-9]|[0-9]|)" required minlength="1" maxlength="2" autocomplete="off" title="Compris entre 0 et 49"/>
+                        </div>
+                        <div class="item-form" id="annotations">
+                            <label class="label-form"><strong>*</strong> : Champs obligatoires.</label>
+                        </div>
+                        <div class="item-form">
+                            <input class="button-form" type="submit" value="Enregistrer le rôle"/>
+                            <p>Menu : <a href="../admin/display.php?table=roles" id="lien-profil">Afficher les rôles</a>.</p>
+                            <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
+                        </div>
+                    </form>  
+                <?php } ?>
+                <?php if($table == "primary_cats") { ?>
+                    <h2>Ajouter une catégorie mère</h2>
+                    <form action="/php/admin/add.php?table=primary_cats" method="POST" class="form"> 
+                        <div class="item-form">
+                            <div class="flashes">
+                                <a class="error"><?= $errmsg ?></a>
                             </div>
-                            <div class="item-form">
-                                <label class="label-form">Droits<strong>*</strong><var>-Nombre [0-49] : 50 = User-</var></label>
-                                <input type="text" name="rol_rights" class="input-form" pattern="([0-4][0-9]|[0-9]|)" required minlength="1" maxlength="2" autocomplete="off" title="Compris entre 0 et 49"/>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Nom<strong>*</strong><var>-20 : Caractères maximum-</var></label>
+                            <input type="text" name="pry_cat_name" class="input-form" pattern="([A-Z]|[a-z])\S+" required minlength="3" maxlength="20" autocomplete="off" title="Compris entre 3 et 20 caractères sans espaces"/>
+                        </div>
+                        <div class="item-form" id="annotations">
+                            <label class="label-form"><strong>*</strong> : Champs obligatoires.</label>
+                        </div>
+                        <div class="item-form">
+                            <input class="button-form" type="submit" value="Enregistrer la catégorie mère"/>
+                            <p>Menu : <a href="../admin/display.php?table=primary_cats" id="lien-profil">Afficher les catégories mères</a>.</p>
+                            <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
+                        </div>
+                    </form>  
+                <?php } ?>
+                <?php if($table == "categories") { ?>
+                    <h2>Ajouter une catégorie </h2>
+                    <form action="/php/admin/add.php?table=categories" method="POST" class="form"> 
+                        <div class="item-form">
+                            <div class="flashes">
+                                <a class="error"><?= $errmsg ?></a>
                             </div>
-                            <div class="item-form" id="annotations">
-                                <label class="label-form"><strong>*</strong> : Champs obligatoires.</label>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Nom<strong>*</strong><var>-20 : Caractères maximum-</var></label>
+                            <input type="text" name="cat_name" class="input-form" pattern="([A-Z]|[a-z])\S+" required minlength="3" maxlength="20" autocomplete="off" title="Compris entre 3 et 20 caractères sans espaces"/>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Catégorie Mère<strong>*</strong></label>
+                            <select id="pry_cat" name="name_pry_cat">
+                                <option hidden value="">Sélectionnez une catégorie mère...</option>
+                                <?php display_form(get_primary_cats_availaible()) ?>
+                            </select>
+                        </div>
+                        <div class="item-form" id="annotations">
+                            <label class="label-form"><strong>*</strong> : Champs obligatoires.</label>
+                        </div>
+                        <div class="item-form">
+                            <input class="button-form" type="submit" value="Enregistrer la catégorie"/>
+                            <p>Menu : <a href="../admin/display.php?table=categories" id="lien-profil">Afficher les catégories</a>.</p>
+                            <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
+                        </div>
+                    </form>
+                <?php } ?>
+                <?php if($table == "products") { ?>
+                    <h2>Ajouter un produit </h2>
+                    <form action="/php/admin/add.php?table=products" method="POST" class="form"> 
+                        <div class="item-form">
+                            <div class="flashes">
+                                <a class="error"><?= $errmsg ?></a>
                             </div>
-                            <div class="item-form">
-                                <input class="button-form" type="submit" value="Enregistrer le rôle"/>
-                                <p>Menu : <a href="../admin/display.php?table=roles" id="lien-profil">Afficher les rôles</a>.</p>
-                                <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
-                            </div>
-                        </form>  
-                    <?php } ?>
-                    <?php if($table == "primary_cats") { ?>
-                        <h2>Ajouter une catégorie mère</h2>
-                        <form action="/php/admin/add.php?table=primary_cats" method="POST" class="form"> 
-                            <div class="item-form">
-                                <div class="flashes">
-                                    <a class="error"><?= $errmsg ?></a>
-                                </div>
-                            </div>
-                            <div class="item-form">
-                                <label class="label-form">Nom<strong>*</strong><var>-20 : Caractères maximum-</var></label>
-                                <input type="text" name="pry_cat_name" class="input-form" pattern="([A-Z]|[a-z])\S+" required minlength="3" maxlength="20" autocomplete="off" title="Compris entre 3 et 20 caractères sans espaces"/>
-                            </div>
-                            <div class="item-form" id="annotations">
-                                <label class="label-form"><strong>*</strong> : Champs obligatoires.</label>
-                            </div>
-                            <div class="item-form">
-                                <input class="button-form" type="submit" value="Enregistrer la catégorie mère"/>
-                                <p>Menu : <a href="../admin/display.php?table=primary_cats" id="lien-profil">Afficher les catégories mères</a>.</p>
-                                <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
-                            </div>
-                        </form>  
-                    <?php } ?>
-                    <?php if($table == "categories") { ?>
-                        <h2>Ajouter une catégorie </h2>
-                        <form action="/php/admin/add.php?table=categories" method="POST" class="form"> 
-                            <div class="item-form">
-                                <div class="flashes">
-                                    <a class="error"><?= $errmsg ?></a>
-                                </div>
-                            </div>
-                            <div class="item-form">
-                                <label class="label-form">Nom<strong>*</strong><var>-20 : Caractères maximum-</var></label>
-                                <input type="text" name="cat_name" class="input-form" pattern="([A-Z]|[a-z])\S+" required minlength="3" maxlength="20" autocomplete="off" title="Compris entre 3 et 20 caractères sans espaces"/>
-                            </div>
-                            <div class="item-form">
-                                <label class="label-form">Catégorie Mère<strong>*</strong></label>
-                                <select id="pry_cat" name="name_pry_cat">
-                                    <option hidden value="">Sélectionnez une catégorie mère...</option>
-                                    <?php display_pry_cats_and_cats_form(get_primary_cats_availaible()) ?>
-                                </select>
-                            </div>
-                            <div class="item-form" id="annotations">
-                                <label class="label-form"><strong>*</strong> : Champs obligatoires.</label>
-                            </div>
-                            <div class="item-form">
-                                <input class="button-form" type="submit" value="Enregistrer la catégorie"/>
-                                <p>Menu : <a href="../admin/display.php?table=categories" id="lien-profil">Afficher les catégories</a>.</p>
-                                <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
-                            </div>
-                        </form>
-                    <?php } ?>
-                    <?php if($table == "products") { ?>
-                        <h2>Ajouter un produit </h2>
-                        <form action="/php/admin/add.php?table=products" method="POST" class="form"> 
-                            <div class="item-form">
-                                <div class="flashes">
-                                    <a class="error"><?= $errmsg ?></a>
-                                </div>
-                            </div>
-                            <div class="item-form">
-                                <label class="label-form">Nom<strong>*</strong><var>-100 : Caractères maximum-</var></label>
-                                <input type="text" name="product_name" class="input-form" pattern="([a-z]|[A-Z]|\s)+\w" required minlength="3" maxlength="100" autocomplete="off" title="Compris entre 3 et 100 caractères sans espaces, ni accents"/>
-                            </div>
-                            <div class="item-form">
-                                <label class="label-form">Catégorie<strong>*</strong></label>
-                                <select id="cat" name="name_cat">
-                                    <option hidden value="">Sélectionnez une catégorie ...</option>
-                                    <?php display_pry_cats_and_cats_form(get_categories_availaible()) ?>
-                                </select>
-                            </div>
-                            <div class="item-form">
-                                <label class="label-form">Prix</label>
-                                <input class="input-form" name="price" id="price" type="text" autocomplete="off" required/>
-                            </div>
-                            <div class="item-form">
-                                <label class="label-form">Image (url)</label>
-                                <input class="input-form" name="image" id="image" type="url" autocomplete="off" required/>
-                            </div>
-                            <div class="item-form">
-                                <label class="label-form">Description</label>
-                                <input class="input-form" name="description" id="description" autocomplete="off" required type="text"/>
-                            </div>
-                            <div class="item-form" id="annotations">
-                                <label class="label-form"><strong>*</strong> : Champs obligatoires.</label>
-                            </div>
-                            <div class="item-form">
-                                <input class="button-form" type="submit" value="Ajouter le produit"/>
-                                <p>Menu : <a href="../admin/display.php?table=products" id="lien-profil">Afficher les produits</a>.</p>
-                                <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
-                            </div>
-                        </form>
-                    <?php } ?>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Nom<strong>*</strong><var>-100 : Caractères maximum-</var></label>
+                            <input type="text" name="product_name" class="input-form" pattern="([a-z]|[A-Z]|\s)+\w" required minlength="3" maxlength="100" autocomplete="off" title="Compris entre 3 et 100 caractères sans espaces, ni accents"/>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Catégorie<strong>*</strong></label>
+                            <select id="cat" name="name_cat">
+                                <option hidden value="">Sélectionnez une catégorie ...</option>
+                                <?php display_form(get_categories_availaible()) ?>
+                            </select>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Prix</label>
+                            <input class="input-form" name="price" id="price" type="text" pattern="([0-9]{1,8}[,][0-9]{1,2})|([0-9]{1,8})" autocomplete="off" required/>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Image (url)</label>
+                            <input class="input-form" name="image" id="image" type="url" autocomplete="off" required/>
+                        </div>
+                        <div class="item-form">
+                            <label class="label-form">Description</label>
+                            <input class="input-form" name="description" id="description" autocomplete="off" required type="text"/>
+                        </div>
+                        <div class="item-form" id="annotations">
+                            <label class="label-form"><strong>*</strong> : Champs obligatoires.</label>
+                        </div>
+                        <div class="item-form">
+                            <input class="button-form" type="submit" value="Ajouter le produit"/>
+                            <p>Menu : <a href="../admin/display.php?table=products" id="lien-profil">Afficher les produits</a>.</p>
+                            <p>Fausse manip ? <a href="../admin/administration_menu.php" id="lien-profil">Retourner à la page d'administration</a>.</p>
+                        </div>
+                    </form>
+                <?php } ?>
             </div>
         </section>
     </body>

@@ -40,8 +40,8 @@
                             <div>
                                 <li><a id="view-products" href="../admin/display.php?table=products">Voir table des produits</a></li>
                                 <li><a id="add-product" href="/php/admin/add.php?table=products">Ajouter un produit</a></li>
-                                <li><a id="modify-product" href="/php/admin/modify.php?table=products">Modifier un produit (ID)</a></li>
-                                <li><a id="delete-product" href="/php/admin/delete.php?table=products">Supprimer un produit (ID)</a></li>
+                                <li><a id="modify-product" href="/php/admin/modify_by_id.php?table=products">Modifier un produit (ID)</a></li>
+                                <li><a id="delete-product" href="/php/admin/delete_by_id.php?table=products">Supprimer un produit (ID)</a></li>
                             </div>
                         </ul>
                 </article>
@@ -52,8 +52,8 @@
                         <div>
                             <li><a id="view-categories" href="../admin/display.php?table=categories">Voir la liste des catégories</a></li>
                             <li><a id="add-category" href="/php/admin/add.php?table=categories">Ajouter une catégorie</a></li>
-                            <li><a id="modify-category" href="/php/admin/modify.php?table=categories">Modifier une catégorie (ID)</a></li>
-                            <li><a id="delete-category" href="/php/admin/delete.php?table=categories">Supprimer une catégorie (ID)</a></li>
+                            <li><a id="modify-category" href="/php/admin/modify_by_id.php?table=categories">Modifier une catégorie (ID)</a></li>
+                            <li><a id="delete-category" href="/php/admin/delete_by_id.php?table=categories">Supprimer une catégorie (ID)</a></li>
                         </div>
                     </ul>
                 </article>
@@ -64,8 +64,8 @@
                         <div>
                             <li><a id="view-parent-categories" href="../admin/display.php?table=primary_cats">Voir la liste des catégories mères</a></li>
                             <li><a id="add-parent-category" href="/php/admin/add.php?table=primary_cats">Ajouter une catégorie mère</a></li>
-                            <li><a id="modify-parent-category" href="/php/admin/modify.php?table=primary_cats">Modifier une catégorie mère</a></li>
-                            <li><a id="delete-parent-category" href="/php/admin/delete.php?table=primary_cats">Supprimer une catégorie mère (ID)</a></li>
+                            <li><a id="modify-parent-category" href="/php/admin/modify_by_id.php?table=primary_cats">Modifier une catégorie mère (ID)</a></li>
+                            <li><a id="delete-parent-category" href="/php/admin/delete_by_id.php?table=primary_cats">Supprimer une catégorie mère (ID)</a></li>
                         </div>
                     </ul>
                 </article>
@@ -77,8 +77,8 @@
                         <div>
                             <li><a id="view-roles" href="../admin/display.php?table=roles">Voir la liste des rôles</a></li>
                             <li><a id="add-role" href="/php/admin/add.php?table=roles">Ajouter un rôle</a></li>
-                            <li><a id="modify-role" href="/php/admin/modify.php?table=roles">Modifier un rôle (ID)</a></li>
-                            <li><a id="delete-role" href="/php/admin/delete.php?table=roles">Supprimer un rôle (ID)</a></li>
+                            <li><a id="modify-role" href="/php/admin/modify_by_id.php?table=roles">Modifier un rôle (ID)</a></li>
+                            <li><a id="delete-role" href="/php/admin/delete_by_id.php?table=roles">Supprimer un rôle (ID)</a></li>
                         </div>
                     </ul>
                 </article>
@@ -89,8 +89,8 @@
                         <div>
                             <li><a id="view-users" href="../admin/display.php?table=users">Voir la liste des utilisateurs</a></li>
                             <li><a id="add-user" href="/php/admin/add.php?table=users">Ajouter un utilisateur</a></li>
-                            <li><a id="modify-user" href="/php/admin/modify.php?table=users">Modifier un utilisateur (ID)</a></li>
-                            <li><a id="delete-user" href="/php/admin/delete.php?table=users">Supprimer un utilisateur (ID)</a></li>
+                            <li><a id="modify-user" href="/php/admin/modify_by_id.php?table=users">Modifier un utilisateur (ID)</a></li>
+                            <li><a id="delete-user" href="/php/admin/delete_by_id.php?table=users">Supprimer un utilisateur (ID)</a></li>
                         </div>
                     </ul>
                 </article>

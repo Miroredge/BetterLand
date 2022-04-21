@@ -47,7 +47,7 @@
                 </h1>
             </div>
             <div class="recherche">
-                <form id="search-bar-client" method="GET">
+                <form action="/php/search.php" id="search-bar-client" method="GET">
                     <input type="text" id="recherche-site" placeholder="Barre de recherche.." name="search_bar" autocomplete="off">
                     <button type="submit" id="recherche-site" >Rechercher</button>
                 </form>
@@ -96,7 +96,7 @@
                 <?php display_header() ?>
                 <li>
                     <div id="title-cat" >
-                        <a class="fill-div" href="/classement/">Classement</a> <!-- TODO LINK -->
+                        <a class="fill-div" href="/php/classement.php">Classement</a>
                     </div>
                 </li>
             </ul>
