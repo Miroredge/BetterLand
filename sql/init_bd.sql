@@ -1,4 +1,0 @@
-INSERT INTO `usr` (`ROW_IDT`, `FST_NAM`, `LST_NAM`, `SEX`, `EML`, `ADR`, `CTY`, `PST_COD`, `PHN_NBR`, `BTH_DAT`, `PWD`, `TMP_PWD`, `PSD`) VALUES
-(1, 'Maximilien', 'PONCET', 'Homme', 'maximilien.poncet19+BetterLand@gmail.com', '3, Rue Théodulf', 'Orléans', 45000, '+33782517500', '2004-01-19', 'fc01cf95e8eb513375e5ddcb33330923d69a4da66490548fdc0645d5dcdfeaa4', 0, 'Miroredge_01'),
-(130, 'Nicolas', 'PONCET', 'Homme', 'nicolas.poncet+PaperLandProject@gmail.com', '3, Rue Monsieur Oui', 'Orléans', 45000, '+33765434567', '1978-07-13', 'fcba8051ec9c89dfa788d2e093b54765629bc153237a2a4d26c0ae959500b4c5', 0, 'Astenor');
---  + TOUT LES AUTRES INSERT INTO
