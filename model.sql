@@ -42,7 +42,7 @@ CREATE TABLE USR(
 
 CREATE TABLE ROL(
         ROW_IDT Integer  Auto_increment  NOT NULL ,
-        RGT     Varchar (50) NOT NULL ,
+        RGT     TINYINT(50) NOT NULL ,
         NAM     Varchar (15) NOT NULL
 	,CONSTRAINT ROL_AK UNIQUE (NAM)
 	,CONSTRAINT ROL_PK PRIMARY KEY (ROW_IDT)
