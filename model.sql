@@ -81,7 +81,7 @@ CREATE TABLE CAT(
 
 CREATE TABLE PDT(
         ROW_IDT     Integer  Auto_increment  NOT NULL ,
-        PCE         Real NOT NULL ,
+        PCE         DECIMAL(10,2) NOT NULL ,
         IMG         Text NOT NULL ,
         DSC         Text NOT NULL ,
         NAM         Varchar (50) NOT NULL ,
