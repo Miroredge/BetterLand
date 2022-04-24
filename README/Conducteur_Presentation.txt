@@ -1,0 +1,21 @@
+Points : 
+- 10 / 20 : des formulaires simples avec des champs de type texte et un plan du site clair. (login.php)
+
+- 12 / 20 : des requêtes SQL de difficulté moyenne (jointure) (gestion.db : l.478 : login_user())
+	    des formulaires avec des formats spécifiques bien définis (register.php)
+	    formulaire pour insérer des données dans la base de données (/admin/add.php)
+
+- 14 / 20 : des requêtes SQL assez difficile (gestion.db : l.865 : get_search_result())
+	    des formulaires avec des formats spécifiques bien définis et des informations dans les formulaires qui sont liées à la base de données. (/admin/modify_by_id.php ou /admin/delete_by_id.php ou /admin/add.php?table=users)
+
+BONUS :
+ +1 : gestion des parties communes des pages web à l’aide d’inclusion de fichiers PHP (Voir Index.php + pages /php/display.php ou /php/display.php?p_cat=[insert_Number]&cat=[insert_Number])
+ +1 : Gestion des images avec la BD URL : (http://localhost/php/admin/display.php?table=products : ID=10000 Enveloppe Kraft) (pas tout en url au cas ou images enlevés des sites)
+ +1 : equêtes SQL qui sont hors programme, clauses Group by et having (/php/admin/gestion_db_admin.php : l.415 : get_users_total_cart HAVING/GROUP BY + l.16 dans get_table_lists GROUP BY)
+ +1 : CSS responsive design (Cf Accueil)
+ +2 : variables de session (Omniprésentes dans quasiment n'importe quel fichier)
+
+Fil Rouge :
+User : Inscription -> Déconnexion -> MDP oublié -> Changement MDP -> Profil -> Accueil -> Articles -> Panier -> Valider Panier -> recherche
+Admin : Display table.
+SuperAdmin : Display - all tables -> Add / modify / delete / BY_ID -> Classement
