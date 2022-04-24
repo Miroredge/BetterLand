@@ -2,12 +2,7 @@
     <footer>
         <h3>Plan du site</h3>
         <div class=plan>
-            <h4 href="/papetrie">Papeterie</h4>
-            <p><a href="/papetrie/feuilles_blanches">Feuilles blanches</a> - <a href="/papetrie/fiches_cartonnees">Fiches cartonnées</a> - <a href="/papetrie/cahiers">Cahiers</a> - <a href="/papetrie/enveloppes">Enveloppes</a></p>
-            <h4 href="/informatique">Informatique</h4>
-            <p><a href="/informatique/imprimantes">Imprimantes</a> - <a href="/informatique/scanners">Scanners</a> - <a href="/informatique/cartouches">Cartouches d'encre</a> - <a href="/informatique/tablettes">Tablettes graphiques</a></p>
-            <h4 href="/fournitures">Fournitures</h4>
-            <p><a href="/fournitures/trousses">Trousses</a> - <a href="/fournitures/effaceurs">Effaceurs</a> - <a href="/fournitures/surligneurs">Surligneurs</a> - <a href="/fournitures/stylos">Stylos</a> - <a href="/fournitures/gommes">Gommes</a> - <a href="/papetrie/crayons_couleur">Crayon de couleur</a> - <a href="/fournitures/feutres">Feutres</a></p>
+            <?= display_footer(); ?>
         </div>
         <h3>Nous contacter</h3>
         <div class=contact>

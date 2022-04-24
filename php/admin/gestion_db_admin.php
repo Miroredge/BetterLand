@@ -240,6 +240,7 @@
         {
             if ($key == 'product_name')
             {
+                $value = escape_string($value);
                 update_row_global_tables('pdt', 'NAM', $value, 'ROW_IDT', $product_id);
             }
             if ($key == 'name_cat')  
@@ -411,6 +412,33 @@
         }
     }
 
+    function get_users_total_cart($price) 
+    {
+        $conn = $GLOBALS['connection'];
+
+        $sql = "SELECT crt.ROW_IDT_USR Identifiant, usr.PSD Pseudo, sum(qty*pce) 'Total Panier' 
+                FROM `crt` 
+                INNER JOIN usr ON (usr.row_idt = crt.ROW_IDT_USR) 
+                INNER JOIN crt_pdt_lnk ON (crt.ROW_IDT = crt_pdt_lnk.crt_row_idt) 
+                INNER JOIN pdt ON (pdt.row_idt = crt_pdt_lnk.pdt_row_idt) 
+                WHERE `crt`.DAT IS NOT NULL
+                GROUP BY crt.row_idt_usr, usr.PSD 
+                HAVING sum(crt_pdt_lnk.qty*pdt.pce) > " . $price . " 
+                ORDER BY sum(crt_pdt_lnk.qty*pdt.pce) 
+                DESC LIMIT 50;";
+
+        $result = $conn -> query($sql);
+
+        if ($result === false) 
+        {
+            exit("Veuillez Contacter l'administrateur");
+        }
+        else
+        {
+            return $result;
+        }
+    }
+    
     function get_primary_cats_availaible()
     {
         $conn = $GLOBALS['connection'];
@@ -522,6 +550,61 @@
         }        
     }
 
+    function display_user_table_classement ($data, $_mess = "")
+    {
+        $nblignes = $data -> num_rows;
+
+        if($nblignes == 0)
+        {
+            echo '<a>Aucun résultat pour une dépense supérieure à : ' . $_mess . ' €</a>';
+        }
+        else
+        {
+            $data -> data_seek(0);
+
+            $first = true;
+            
+            echo '<table border=1>';
+
+            while ($row = $data->fetch_assoc())
+            {
+                if ($first)
+                {
+                    $first = false;
+                    echo '<tr>';
+                    foreach ($row as $key => $value)
+                    {
+                        echo "<th> {$key} </th>";
+                    }
+                    echo '</tr>';
+                }
+
+                echo '<tr>';
+                foreach ($row as $key => $value)
+                {
+                    if ($key == 'Total Panier')
+                    {
+                        echo "<td> {$value} €</td>";    
+                    }
+                    else 
+                    {
+                        if ($key == 'Pseudo') 
+                        {
+                            echo "<td><a target='_blank' id='m' href='/php/profil.php?user_psd=$value'>{$value}<a></td>";
+                        }
+                        else
+                        {
+                            echo "<td> {$value} </td>";
+                        }
+                    }
+                }
+                echo '</tr>';		
+            }
+
+            echo'</table>';
+        }
+    }
+
     function display_roles_form($array)
     {
         foreach ($array as $key => $value) 
@@ -551,8 +634,8 @@
             {
                 $first = false;
                 echo '<tr>';
-                foreach ($row as $key => $value)
-                    echo "<th id='" . $key . "'> {$key} </th>";
+
+                foreach ($row as $key => $value) echo "<th id='" . $key . "'> {$key} </th>";
 
                 echo '<th>Modifier</th>';
                 echo '<th>Supprimer</th>';

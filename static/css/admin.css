@@ -141,8 +141,13 @@ body {
     padding: 5px;
 }
 
+.bouton-leave-404-classement {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
-#leave a{
+#leave a, #button_404 a, #button_404_admin a, #classement a {
     text-align: center;
     text-decoration: none;
     color: black;
@@ -152,11 +157,10 @@ body {
     border-radius: 15px;
     padding: 10px;
     background-color: white;
-    align-self: flex-start;
 }
-#leave a:hover {
+#leave a:hover, #button_404 a:hover, #button_404_admin a:hover, #classement a:hover {
     background-color: rgb(184, 159, 90);
-} 
+}
 
 
 
@@ -284,13 +288,31 @@ h3#infos {
     color: rgb(255, 0, 0);
 }
 
+@media (max-width: 1040px) 
+{
+    .bouton-leave-404-classement {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 5px;
+    }
+    #leave {
+        width: max-content;
+    }
+}
+
 /* /////////////////////////////////////////////////////////////////////////// FOR SCREENS < 650 px ///////////////////////////////////////////////////////////////////////////////// */
 
 
 @media (max-width: 650px) 
 {
-    #delete-category, #modify-category, #add-category, #view-categories, #delete-product, #modify-product, #add-product, #view-products, #view-parent-categories, #add-parent-category, #delete-parent-category, #view-roles, #add-role, #delete-role, #modify-role, #view-users, #add-user, #delete-user {
+    #delete-category, #modify-category, #add-category, #view-categories, #delete-product, #modify-product, #add-product, #view-products, #view-parent-categories, #add-parent-category, #modify-parent-category, #delete-parent-category, #view-roles, #add-role, #delete-role, #modify-role, #view-users, #add-user, #modify-user, #delete-user {
         inline-size: 190px;
+        overflow-wrap: break-word;
+    }
+    
+    #leave {
+        display: contents;
         overflow-wrap: break-word;
     }
 }

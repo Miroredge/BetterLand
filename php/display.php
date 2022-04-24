@@ -9,6 +9,8 @@
     $cat = false;
     $pdt = false;
 
+    $none = false;
+
     if (isset($_GET['pdt']) & isset($_GET['cat']) & isset($_GET['p_cat'])) 
     {
         $pdt = true;
@@ -27,7 +29,7 @@
 
         $_TITLE = $pdt_name_formatted;
 
-        // TODO Renvoie vers la page produit.
+        $subjet = $_TITLE;
     }
     else
     {
@@ -68,9 +70,11 @@
             }
             else
             {
+                $none = true;
+
                 $_TITLE = "Cat. Meres";
-        
-                $content = "";
+                $subjet = $_TITLE;
+                $content = get_parent_categories();
             }
         }
     }
@@ -83,7 +87,7 @@
         <link rel="stylesheet" href="/static/css/display.css">
     </head>
     <body>
-        <header id="category-header">
+        <header id="index-header">
             <?php if ($info != "") { ?>
                 <div class=infos-display>
                     <ul>
@@ -92,21 +96,41 @@
                     </ul>
                 </div>
             <?php } ?>
+            <?php if ($none == true) { ?>
+                <h1 id="category-name"><?= $subjet ?></h1>
+                <section id="products-list">
+                    <ul>
+                        <?php display_parent_categories_index($content) ?>
+                    </ul>
+                </section>    
+            <?php } ?>
             <?php if ($p_cat == true) { ?>
-            <h1 id="category-name"><?= $subjet ?></h1>
-            <section id="products-list">
-                <ul>
-                    <?php display_child_index($content) ?>
-                </ul>
-            </section>
+                <h1 id="category-name"><?= $subjet ?></h1>
+                <section id="products-list">
+                    <ul>
+                        <?php display_child_index($content) ?>
+                    </ul>
+                </section>
             <?php } ?>
             <?php if ($cat == true) { ?>
-            <h1 id="category-name"><?= $subjet ?></h1>
-            <section id="products-list">
-                <ul>
-                    <?php display_products_index($content) ?>
-                </ul>
-            </section>
+                <h1 id="category-name"><?= $subjet ?></h1>
+                <div class="orga-produits">
+                    <?= display_products(get_products_from_cat($cat_name), $cat_name) ?>
+                </div>
+            <?php } ?>
+            <?php if ($pdt == true) { ?>
+                <div class="product-back">  
+                    <h2><?= $pdt_name_formatted ?></h2> <!-- nom du produit -->
+                    <img src="<?=get_value_global_tables('PDT', 'IMG', 'ROW_IDT', $pdt_id) ?>" width=50%/>
+                    <p id="product-description"><strong>Description :</strong> <?=get_value_global_tables('PDT', 'DSC', 'ROW_IDT', $pdt_id) ?></p> 
+                    <p id="product-price"><?=get_value_global_tables('PDT', 'PCE', 'ROW_IDT', $pdt_id) ?> €</p>
+                    <h3 id=deco>
+                    <form action="/php/add_to_cart.php?pdt_id=<?= $pdt_id ?>" method="post">
+                        <input type="number" name="qty" min=1 placeholder="Quantité...">
+                        <input class="button-form" type="submit" value="Ajouter au panier">
+                    </form>
+                    </h3> 
+                </div>
             <?php } ?>
         </header>
     </body>

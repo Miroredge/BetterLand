@@ -318,7 +318,7 @@ footer h3 {
 }
 
 footer h4 {
-    font-weight: normal;
+    font-weight: bold;
     font-style: oblique;
     padding: 1% 5%;
     user-select: none;

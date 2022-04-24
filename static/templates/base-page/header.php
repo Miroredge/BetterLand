@@ -74,7 +74,7 @@
                     <ul class="menu">
                         <li>
                             <div id="title-profil">
-                                <a href="/panier/">
+                                <a href="/php/cart.php">
                                     <img src="/static/img/shopping-cart.png" alt="cart icone" width="40px" id="cart">
                                 </a>
                             </div>
@@ -94,11 +94,6 @@
                     </div>
                 </li>
                 <?php display_header() ?>
-                <li>
-                    <div id="title-cat" >
-                        <a class="fill-div" href="/php/classement.php">Classement</a>
-                    </div>
-                </li>
             </ul>
         </nav>
         <div class="separator"></div>

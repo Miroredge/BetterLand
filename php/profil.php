@@ -5,7 +5,8 @@
     if(!isset($_SESSION)) session_start(); 
     
     // Get user pseudo
-    $user = (isset($_SESSION['pseudo'])?$_SESSION['pseudo']:null); 
+    if(!isset($_GET['user_psd'])) $user = (isset($_SESSION['pseudo'])?$_SESSION['pseudo']:null); 
+    else $user = $_GET['user_psd'];
 
     // If user is not connected
     if ($user == null) 
@@ -33,7 +34,7 @@
     if(isset($_SESSION["info_updated"])) unset($_SESSION["info_updated"]);
 
     // If form is submitted
-    if (isset($_POST['password'])) 
+    if (isset($_POST['password']) & !isset($_GET['user_id'])) 
     {
         // Change password of the user.
         change_password($_SESSION['pseudo'], $_POST['password']);
@@ -49,15 +50,30 @@
     }
 
     // For "Not Only User"
-    $no_user = false; 
-    if (implode(',', $_SESSION['roles']) != "User") 
+    $no_user = false;
+    if(isset($_GET['user_psd']))
     {
-        $no_user = true;
-        // Get user roles
-        $user_roles = implode(", ", $_SESSION['roles']);
+        $user_req_roles = get_user_roles($_GET['user_psd']);
+
+        if(implode(',', $user_req_roles) != "User")
+        {
+            $no_user = true;
+            $user_roles = implode(", ", $user_req_roles);
+        }
+    }
+    else
+    {
+        if (implode(',', $_SESSION['roles']) != "User") 
+        {
+            $no_user = true;
+            // Get user roles
+            $user_roles = implode(", ", $_SESSION['roles']);
+        }
     }
     // Get user infos
-    $user_infos = get_user_infos($_SESSION['pseudo']);
+    if(!isset($_GET['user_psd'])) $user_infos = get_user_infos($_SESSION['pseudo']);
+    else $user_infos = get_user_infos($_GET['user_psd']);
+
     // Format birthdate
     foreach ($user_infos as $key => $value)
     {
@@ -85,7 +101,7 @@
         <li id="display_email">Email : <var id="response"><?= $user_infos['email'] ?></var></li>
         <li>Pseudo : <var id="response"><?= $user_infos['pseudo'] ?></var></li>
         
-        <?php if (verif_role('Admin') or verif_role('SuperAdmin')) { ?>
+        <?php if ($no_user == true & (verif_role('Admin') or verif_role('SuperAdmin'))) { ?>
             <div class='admin-menu'>
                 <li id="admin-row">Administration : <var id="response"><a id='menuadmin' href='../php/admin/administration_menu.php'>Menu Administrateur</a></var></li>
             </div>

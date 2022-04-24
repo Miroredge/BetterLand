@@ -22,7 +22,6 @@
 
         <link rel="shortcut icon" href="/static/img/favicon.ico">
         <link rel="stylesheet" href="/static/css/admin_display.css">
-        
     </head>
     <body>
 

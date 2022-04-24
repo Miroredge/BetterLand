@@ -47,7 +47,7 @@
 
         if ($result === false) 
         {
-            exit("Veuillez Contacter l'administrateur");
+            exit("(GVGT) Veuillez Contacter l'administrateur");
         }
         else
         {
@@ -135,7 +135,7 @@
     }
 
     function verif_role($rol) 
-    {     
+    {
         $is_role = false;
         $is_role = check_hierarchy_access($rol, implode("','", $_SESSION["roles"]));
         return $is_role;
@@ -184,6 +184,225 @@
         else
         {
             $_SESSION["error"] = "Ce pseudo ou cette adresse mail existe déjà";
+        }
+    }
+
+    function check_available_cart($user_psd)
+    {
+        $conn = $GLOBALS['connection'];
+
+        $user_id = get_value_global_tables('USR', 'ROW_IDT', 'PSD', $user_psd);
+
+        $sql = "SELECT COUNT(*) AS COUNT FROM `crt` WHERE DAT IS NULL AND ROW_IDT_USR = '" . $user_id . "';";
+        $result = $conn -> query($sql);
+
+        if ($result === false) 
+        {
+            exit("Veuillez Contacter l'administrateur");
+        }
+        else
+        {
+            $row = $result -> fetch_assoc();
+
+            if ($row['COUNT'] > 1) 
+            {
+                exit("Veuillez Contacter l'administrateur");
+            }
+            else
+            {
+                if ($row['COUNT'] == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }    
+            }
+        }
+    }
+
+    function get_available_cart($user_psd)
+    {
+        $r_return = null;
+
+        $conn = $GLOBALS['connection'];
+
+        $user_id = get_value_global_tables('USR', 'ROW_IDT', 'PSD', $user_psd);
+
+        $cart_available = check_available_cart($user_psd);
+
+        if($cart_available === true)
+        {
+            $sql = "SELECT ROW_IDT ID FROM `crt` WHERE DAT IS NULL AND ROW_IDT_USR = '" . $user_id . "';";
+            $result = $conn -> query($sql);
+
+            if ($result === false)
+            {
+                exit("Veuillez Contacter l'Administrateur");
+            }
+            else
+            {
+                $row = $result -> fetch_assoc();
+                $idt_crt = $row['ID'];
+                
+                $r_return = $idt_crt;
+            }
+        }
+        else
+        {
+            $sql = "INSERT INTO `crt` (DAT, ROW_IDT_USR) VALUES (NULL, '" . $user_id . "');";
+            $result = $conn -> query($sql);
+            
+            if($result === false)
+            {
+                exit("Veuillez Contacter l'Administrateur");
+            }
+            else
+            {
+                $last_row_idt = $conn -> insert_id;
+
+                $r_return = $last_row_idt;
+            }
+        }
+        return $r_return;
+    }
+
+    function add_product_to_cart($user_psd, $product_id, $quantity)
+    {
+        $cart_id = get_available_cart($user_psd);
+
+        $conn = $GLOBALS['connection'];
+        
+        $sql = "INSERT INTO `crt_pdt_lnk` (QTY, CRT_ROW_IDT, PDT_ROW_IDT) VALUES ('" . $quantity . "', '" . $cart_id . "', '" . $product_id . "') ON DUPLICATE KEY UPDATE QTY = QTY + '" . $quantity . "';";
+        $result = $conn -> query($sql);
+
+        if($result === false)
+        {
+            exit("Veuillez Contacter l'Administrateur");
+        }
+        else 
+        {
+            return true;   
+        }
+    }
+
+    function remove_from_cart($user_psd, $product_id)
+    {
+        $cart_id = get_available_cart($user_psd);
+
+        $conn = $GLOBALS['connection'];
+        
+        $sql = "DELETE FROM `crt_pdt_lnk` WHERE CRT_ROW_IDT = '" . $cart_id . "' AND PDT_ROW_IDT = '" . $product_id . "';";
+        $result = $conn -> query($sql);
+
+        if($result === false)
+        {
+            exit("Veuillez Contacter l'Administrateur");
+        }
+        else 
+        {
+            return true;   
+        }
+    }
+
+    function user_delivery_address_exist($user_id)
+    {
+        $exists = true;
+
+        $conn = $GLOBALS['connection'];
+
+        $sql = "SELECT ADR ADRESSE, CTY VILLE, PST_COD CP FROM `USR` WHERE ROW_IDT = '" . $user_id . "';";
+        $result = $conn -> query($sql);
+
+        if ($result === false) 
+        {
+            exit("Veuillez Contacter l'Administrateur");
+        }
+        else
+        {
+            foreach ($result as $key => $value) 
+            {
+                 
+                if ($value['ADRESSE'] == '' or $value['VILLE'] == '' or $value['CP'] == '') 
+                {
+                    $exists = false;
+                }
+            }
+            return $exists;
+        }
+    }
+
+    function validate_user_cart($user_id)
+    {
+        $conn = $GLOBALS['connection'];
+ 
+        $sql = "UPDATE `crt` SET DAT = NOW() WHERE DAT IS NULL AND ROW_IDT_USR = '" . $user_id . "';";
+        $result = $conn -> query($sql);
+
+        if($result === false)
+        {
+            exit("Veuillez Contacter l'Administrateur");
+        }
+        else 
+        {
+            return true;   
+        }
+    }
+
+    function get_products_in_cart($user_psd)
+    {
+        $conn = $GLOBALS['connection'];
+
+        $cart_id = get_available_cart($user_psd);
+
+        $sql = "SELECT `PDT`.ROW_IDT ID, `PDT`.NAM Nom, PCE 'Prix Unitaire', QTY Quantité, QTY*`pdt`.PCE Somme FROM `crt_pdt_lnk` INNER JOIN `pdt` ON (PDT_ROW_IDT = `PDT`.ROW_IDT) WHERE CRT_ROW_IDT = '" . $cart_id . "';";
+        $result = $conn -> query($sql);
+
+        if ($result === false) 
+        {
+            exit("Veuillez Contacter l'Administrateur");
+        }
+        else
+        {
+            $values = array();
+
+            foreach ($result as $row) 
+            {
+                $values[] = $row;
+            }
+
+            if (empty($values)) 
+            {
+                return false;
+            }
+            else
+            {
+                return $result;
+            }
+
+        }
+    }
+
+    function get_amount_in_user_cart($user_id)
+    {
+        $conn = $GLOBALS['connection'];
+
+        $user_psd = get_value_global_tables('USR', 'PSD', 'ROW_IDT', $user_id);
+        $cart_id = get_available_cart($user_psd);
+
+        $sql = "SELECT SUM(QTY*`pdt`.PCE) Total FROM `crt_pdt_lnk` INNER JOIN `pdt` ON (PDT_ROW_IDT = `PDT`.ROW_IDT) WHERE CRT_ROW_IDT = '" . $cart_id . "';";
+        $result = $conn -> query($sql);
+
+        if ($result === false) 
+        {
+            exit("Veuillez Contacter l'Administrateur");
+        }
+        else
+        {
+            $row = $result -> fetch_assoc();
+
+            return $row['Total'];
         }
     }
 
@@ -484,6 +703,24 @@
         }
     }
 
+    function get_user_roles($user_psd)
+    {
+        $conn = $GLOBALS['connection'];
+
+        $sql = "SELECT GROUP_CONCAT(rol.NAM) Roles FROM `usr` INNER JOIN `rol_usr_lnk` ON (usr.ROW_IDT = USR_ROW_IDT) INNER JOIN `rol` ON (ROL_ROW_IDT = rol.ROW_IDT) WHERE usr.PSD = '" . $user_psd . "';";
+        $result = $conn -> query($sql);
+
+        if ($result === false) 
+        {
+            exit("Veuillez Contacter l'administrateur");
+        }
+        else
+        {            
+            $row = $result -> fetch_assoc();
+            return explode(',', $row['Roles']);
+        }
+    }
+
     function get_roles_name($row_idt)
     {
         $conn = $GLOBALS['connection'];
@@ -606,7 +843,42 @@
     {
         $conn = $GLOBALS['connection'];
 
-        $sql = "SELECT `PDT`.ROW_IDT ID, `CAT`.ROW_IDT C_ID, `PRY_CAT`.ROW_IDT PC_ID, `PDT`.NAM Nom FROM `PDT` INNER JOIN `CAT` ON (`PDT`.ROW_IDT_CAT = `CAT`.ROW_IDT) INNER JOIN `PRY_CAT` ON (`CAT`.ROW_IDT_PRY_CAT = `PRY_CAT`.ROW_IDT) WHERE `CAT`.NAM = '" . $cat . "';";
+        $sql = "SELECT `PDT`.ROW_IDT ID, `CAT`.ROW_IDT C_ID, `PRY_CAT`.ROW_IDT PC_ID, `PDT`.NAM Nom, `PDT`.PCE Prix, `PDT`.NAM FROM `PDT` INNER JOIN `CAT` ON (`PDT`.ROW_IDT_CAT = `CAT`.ROW_IDT) INNER JOIN `PRY_CAT` ON (`CAT`.ROW_IDT_PRY_CAT = `PRY_CAT`.ROW_IDT) WHERE `CAT`.NAM = '" . $cat . "';";
+        $result = $conn -> query($sql);
+
+        if ($result === false) 
+        {
+            exit("Veuillez Contacter l'administrateur");
+        }
+        else
+        {
+            $products = array();
+            
+            while ($row = $result -> fetch_assoc()) 
+            {
+                $products[] = $row;
+            }
+            return $products;
+        }
+    }
+
+    function get_search_result($query_str)
+    {
+        $conn = $GLOBALS['connection'];
+
+        $str_splitted = explode(' ', mb_convert_case($query_str, MB_CASE_LOWER));
+        $str_without_double = array_unique($str_splitted);
+
+        $sql = "SELECT DISTINCT `PDT`.ROW_IDT ID, `CAT`.ROW_IDT C_ID, `PRY_CAT`.ROW_IDT PC_ID, `PDT`.NAM Nom, `PDT`.PCE Prix FROM `PDT` INNER JOIN `CAT` ON (`PDT`.ROW_IDT_CAT = `CAT`.ROW_IDT) INNER JOIN `PRY_CAT` ON (`CAT`.ROW_IDT_PRY_CAT = `PRY_CAT`.ROW_IDT) WHERE ";
+
+        foreach($str_without_double as $word)
+        {
+            $sql .= "((LOWER(`PDT`.NAM) LIKE '%" . $word ."%') OR (LOWER(`PDT`.DSC) LIKE '%" . $word ."%')) AND ";
+        }
+
+        $sql = substr($sql, 0, -5);
+        $sql .= ";";
+
         $result = $conn -> query($sql);
 
         if ($result === false) 
@@ -629,7 +901,53 @@
     {
         display_parent_categories(get_parent_categories());
     }
+
+    function display_footer ()
+    {
+       display_parent_cat_footer(get_parent_categories());
+    }
     
+    function display_parent_cat_footer ($array)
+    {
+        foreach ($array as $key => $value) 
+        {
+            $nom = mb_convert_case($value['Nom'], MB_CASE_TITLE, "UTF-8");
+
+            echo '<h4><a href="/php/display.php?p_cat=' . $value['ID'] . '">' . $nom . '</a></h4>';
+            display_child_footer(get_child_categories($value['Nom']), $value['ID']);
+        }
+    }
+
+    function display_child_footer ($array, $p_cat_id)
+    {
+        echo '<p>';
+        foreach ($array as $key => $value) 
+        {
+            $nom = mb_convert_case($value['Nom'], MB_CASE_TITLE, "UTF-8");
+
+
+            if ((count($array) - 1) == $key) 
+            {
+                echo '<a href="/php/display.php?p_cat=' . $p_cat_id . '&cat=' . $value['ID'] . '">' . str_replace("_", " ", $nom) . '</a>';
+            }
+            else
+            {
+                echo '<a href="/php/display.php?p_cat=' . $p_cat_id . '&cat=' . $value['ID'] . '">' . str_replace("_", " ", $nom) . '</a> - ';
+            }
+        }
+        echo '</p>';
+    }
+
+    function display_parent_categories_index($array)
+    {
+        foreach ($array as $key => $value) 
+        {
+            echo '<div class="article-product">';
+            echo '<a class="object" href=/php/display.php?p_cat='. $value['ID'] . ">" . mb_convert_case(str_replace("_", " ", $value['Nom']), MB_CASE_TITLE, "UTF-8") . '</a>';
+            echo '</div>';
+        }
+    }
+
     function display_child_index($array)
     {
         if (!empty($array)) 
@@ -647,20 +965,26 @@
         }
     }
 
-    function display_products_index($array)
+    function display_products($array, $obj="") 
     {
         if (!empty($array)) 
         {
             foreach ($array as $key => $value) 
             {
-                echo '<div class="article-product">';
-                echo '<a class="object" href=/php/display.php?p_cat='. $value['PC_ID'] . "&cat=" . $value['C_ID'] . "&pdt=" . $value['ID'] . ">" . mb_convert_case(str_replace("_", " ", $value['Nom']), MB_CASE_TITLE, "UTF-8") . '</a>';
+                echo '<div class=miniature-produit>';
+                    echo '<a href="/php/display.php?p_cat='. $value['PC_ID'] . "&cat=" . $value['C_ID'] . "&pdt=" . $value['ID'] . '"><img src="' . get_value_global_tables('PDT', 'IMG', 'ROW_IDT', $value['ID']) . '" width=100%/></a>';
+                    echo '<a href="/php/display.php?p_cat='. $value['PC_ID'] . "&cat=" . $value['C_ID'] . "&pdt=" . $value['ID'] . '">' . $value['Nom'] . '</a> <p>' . $value['Prix'] . ' € </p>';
                 echo '</div>';
             }
         }
         else
         {
-            echo '<h2>Aucun produit trouvé dans cette catégorie</h2>';
+            $obj = mb_convert_case(str_replace("_", " ", $obj), MB_CASE_TITLE, "UTF-8") . ' :';
+
+            echo '<div class=miniature-produit>';
+                echo '<a href="/php/rickRolled.php"><img src="https://media.istockphoto.com/vectors/lost-items-line-vector-icon-unidentified-items-outline-isolated-icon-vector-id1271880340?k=20&m=1271880340&s=612x612&w=0&h=2uNB7AtHZiJOYHqCwQ_QeJnWhHwJEPtpNrNHqjaakuw=" width=100%/></a>';
+                echo '<a>' . $obj . ' Aucun produit trouvé</a>';
+            echo '</div>';
         }
     }
 
@@ -688,6 +1012,41 @@
         }
         echo '</div>';
         // type : <a href="/fournitures/trousses/">Trousses</a>
+    }
+
+    function display_user_table_cart ($data)
+    {
+        $data -> data_seek(0);
+
+        $first = true;
+        
+        echo '<table border=1>';
+
+        while ($row = $data->fetch_assoc())
+        {
+            if ($first)
+            {
+                $first = false;
+                echo '<tr>';
+                foreach ($row as $key => $value)
+                {
+                    if($key != 'ID')
+                    echo "<th> {$key} </th>";
+                }
+                echo '<th> Supprimer </th>';
+                echo '</tr>';
+            }
+
+            echo '<tr>';
+            foreach ($row as $key => $value)
+            {
+                if($key != 'ID')
+                echo "<td> {$value} </td>";       
+            }
+            echo '<td> <a id=s href="/php/delete_product_cart.php?id=' . $row['ID'] . '"> Supprimer </a></td>';
+            echo '</tr>';		
+        }
+        echo'</table>';
     }
 
     function db_disconnect() 

@@ -16,8 +16,6 @@
         <link rel="icon" href="/static/img/favicon.ico">
         <link rel="stylesheet" href="/static/css/headerFooter.css">
         <link rel="stylesheet" href="/static/css/index.css">
-        
-
     </head>
     <body>
 

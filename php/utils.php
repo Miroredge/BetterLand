@@ -5,6 +5,10 @@
         return ($str == "" or $str == "0") ? "Non Renseigné" : $str;
     }
 
+    function escape_string($str) {
+        return str_replace("'", "''", $str);
+    }
+
     function check_password($password) {
         $is_valid = false;
         if (strlen($password) >= 6) 

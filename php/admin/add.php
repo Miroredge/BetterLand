@@ -221,7 +221,7 @@
                         </div>
                         <div class="item-form">
                             <label class="label-form">Nom<strong>*</strong><var>-100 : Caractères maximum-</var></label>
-                            <input type="text" name="product_name" class="input-form" pattern="([a-z]|[A-Z]|\s)+\w" required minlength="3" maxlength="100" autocomplete="off" title="Compris entre 3 et 100 caractères sans espaces, ni accents"/>
+                            <input type="text" name="product_name" class="input-form" required minlength="3" maxlength="100" autocomplete="off" title="Compris entre 3 et 100 caractères sans espaces, ni accents"/>
                         </div>
                         <div class="item-form">
                             <label class="label-form">Catégorie<strong>*</strong></label>

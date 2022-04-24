@@ -1,0 +1,77 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-image: url('../img/background.jpg');
+    background-size: 100%;
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+input {
+    width: 25%;
+    padding: 4px;
+    padding-left: 6px;
+    margin-top: 1px;
+    box-sizing: border-box;
+    border: 1px solid gray; 
+    border-radius: 3px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1em;
+}
+
+#classement-header {
+    font-family: Verdana;
+    display: flex;
+    flex-direction: column;
+    margin: 30px 10% 30px 10%;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    padding: 3%;
+    text-align: center;
+}
+
+.button-form {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1.2em;
+}
+
+a#retour-menu{
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    border-width: 3px;
+    border-style: outset;
+    border-color: lightgray;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: white;
+    align-self: flex-start;
+}
+a#retour-menu:hover {
+    background-color: rgb(184, 159, 90);
+} 
+
+div.separator {
+    height: 1px;
+    width: 100%;
+    margin: 30px 0 30px 0;
+    background-color: black;
+}
+
+.flashes {
+    margin: 5px;
+    padding: 0px;
+}
+
+.flashes a.error{
+    color:rgb(255, 101, 101);
+    font-weight: bold;
+}

@@ -1,7 +1,8 @@
 <?php
     set_include_path( get_include_path() . PATH_SEPARATOR . $_SERVER['DOCUMENT_ROOT'] );
     
-    
+    include_once("gestion_db.php");
+
     if(!isset($_SESSION)) session_start(); 
     
     if(isset($_POST)) 

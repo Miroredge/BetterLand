@@ -33,6 +33,11 @@
     flex-flow: row wrap;
 }
 
+.orga-produits-col {
+    display: flex;
+    flex-direction: column wrap;
+}
+
 .miniature-produit {
     display: flex;
     flex-direction: column;
@@ -46,6 +51,16 @@
 }
 
 .miniature-produit a{
+    font-weight: bold;
+    text-decoration: None;
+    color: black;
+    margin-top: auto;
+    margin-bottom: 5px;
+    word-break: break-word;
+}
+
+.miniature-produit a img{
+    font-weight: bold;
     text-decoration: None;
     color: black;
     margin-bottom: 10px;
@@ -64,11 +79,14 @@
     margin-top: auto;
 }
 
+
 .miniature-produit:hover {
     margin: 2%;
     padding: 2%;
     box-shadow: 0px 8px 16px 0px rgba(255, 153, 0, 0.2);
 }
+/* //////////////////////////////////////////////////////////////////////////////////// */
+
 
 .infos-accueil {
     font-family: Verdana;
@@ -90,18 +108,12 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     font-weight: bold;
 }
+
 h3#infos {
     margin-top: 0%;
 }
 
-#updated_err {   
-    list-style-type: none;
-    border: 2px solid;
-    border-color: lightgray;
-    border-radius: 10px;
-    border-color: rgb(0, 0, 0);
-}
-
-#response_err {
-    color: rgb(255, 0, 0);
+var a {
+    text-decoration: none;
+    color: blue;
 }
