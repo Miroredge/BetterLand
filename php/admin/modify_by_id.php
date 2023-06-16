@@ -1,7 +1,7 @@
 <?php 
-    include_once("verif_admin.php");
+    include_once("./verif_admin.php");
     include_once("./gestion_db_admin.php");
-    include_once("/php/gestion_db.php");
+    include_once("../gestion_db.php");
 
     if(!isset($_SESSION)) session_start();
     
@@ -30,29 +30,34 @@
                 if ($table == 'users') 
                 {
                     $users = true;
-                    $subject = "un Utilisateur : " . get_user_pseudo($id);
+                    // $subject = "un Utilisateur : " . get_user_pseudo($id);
+                    $subject = "un Utilisateur : ";
                 }
                 if ($table == 'roles') 
                 {
                     $roles = true;
-                    $subject = "un Rôle : " . get_roles_name($id);
+                    // $subject = "un Rôle : " . get_roles_name($id);
+                    $subject = "un Rôle : ";
                 }
             }
 
             if ($table == 'products')
             {
                 $products = true;
-                $subject = "un Produit : " . get_products_name($id);
+                // $subject = "un Produit : " . get_products_name($id);
+                $subject = "un Produit : ";
             }
             if ($table == 'categories')
             {
                 $categories = true;
-                $subject = "une Catégorie : " . get_cats_name($id);
+                // $subject = "une Catégorie : " . get_cats_name($id);
+                $subject = "une Catégorie : ";
             }
             if ($table == 'primary_cats')
             {
                 $p_cats = true;
-                $subject = "une Cat. mère : " . get_main_cats_name($id);
+                // $subject = "une Cat. mère : " . get_main_cats_name($id);
+                $subject = "une Cat. mère : ";
             }
         }
         else

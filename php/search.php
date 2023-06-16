@@ -6,7 +6,7 @@ use LDAP\Result;
 
     // Path: php\search.php
     
-    include_once('/php/gestion_db.php');
+    include_once('./gestion_db.php');
     
     if(!isset($_GET['search_bar']) or (isset($_GET['search_bar']) and trim($_GET['search_bar']) == ''))
     {
@@ -19,7 +19,7 @@ use LDAP\Result;
 
         $_TITLE = mb_convert_case($query_search, MB_CASE_TITLE);
 
-        include_once('/static/templates/base-page/header.php');
+        include_once('../static/templates/base-page/header.php');
 
         $result = get_search_result($query_search);
 

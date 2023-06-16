@@ -11,9 +11,7 @@
         recover_password($_POST['email'], $_POST['birthday']);
         $errmsg = (isset($_SESSION["error"])?$_SESSION["error"]:"");
 
-        if ($errmsg != "") 
-        {}
-        else
+        if ($errmsg == "") 
         {
         $_SESSION["error"] = "Un email vous a été envoyé pour réinitialiser votre mot de passe à l'adresse '" . $_POST['email'] . "'";
         header("Location:/php/login.php");

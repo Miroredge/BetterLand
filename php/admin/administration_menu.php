@@ -1,7 +1,7 @@
 <?php
     set_include_path( get_include_path() . PATH_SEPARATOR . $_SERVER['DOCUMENT_ROOT'] );
 
-    include_once("/php/admin/verif_admin.php");
+    include_once("./verif_admin.php");
 
     if(!isset($_SESSION)) session_start();
     

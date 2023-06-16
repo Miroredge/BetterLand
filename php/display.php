@@ -125,7 +125,7 @@
                     <p id="product-description"><strong>Description :</strong> <?=get_value_global_tables('PDT', 'DSC', 'ROW_IDT', $pdt_id) ?></p> 
                     <p id="product-price"><?=get_value_global_tables('PDT', 'PCE', 'ROW_IDT', $pdt_id) ?> €</p>
                     <h3 id=deco>
-                    <form action="/php/add_to_cart.php?pdt_id=<?= $pdt_id ?>" method="post">
+                    <form action="./add_to_cart.php?pdt_id=<?= $pdt_id ?>" method="post">
                         <input type="number" name="qty" min=1 placeholder="Quantité...">
                         <input class="button-form" type="submit" value="Ajouter au panier">
                     </form>

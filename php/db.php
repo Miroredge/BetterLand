@@ -1,7 +1,7 @@
 <?php
     $db_host = "localhost";
-    $db_username = "user";
-    $db_password = "user";
+    $db_username = "root";
+    $db_password = "root";
     $db_name = "betterland";
 
     

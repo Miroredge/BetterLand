@@ -158,15 +158,15 @@
 form {
     display: flex;
     flex-direction: row;
+    justify-self: center;
     justify-content: center;
     width: 100%;
 }
 
 input {
     width: 25%;
-    padding: 4px;
+    margin: 4px;
     padding-left: 6px;
-    margin-top: 1px;
     box-sizing: border-box;
     border: 1px solid gray; 
     border-radius: 3px;

@@ -2,7 +2,7 @@
     set_include_path( get_include_path() . PATH_SEPARATOR . $_SERVER['DOCUMENT_ROOT'] );
     
     // Path: php\cart.php
-    include_once("/php/gestion_db.php");
+    include_once("./gestion_db.php");
 
     if(!isset($_SESSION['pseudo']))
     {

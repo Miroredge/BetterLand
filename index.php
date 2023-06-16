@@ -19,11 +19,11 @@
     </head>
     <body>
 
-    <?php include_once("/static/templates/base-page/header.php") ?>
+    <?php include_once("./static/templates/base-page/header.php") ?>
 
-    <?php include_once("/php/accueil.php") ?>
+    <?php include_once("./php/accueil.php") ?>
 
-    <?php include_once("/static/templates/base-page/footer.php") ?>
+    <?php include_once("./static/templates/base-page/footer.php") ?>
 
     </body>
 </html>

@@ -84,7 +84,8 @@ input:invalid {
     display: flex;
     flex-direction: column;
     margin-top: 5px;
-    width: fit-content;
+    width: 100%;
+    align-self: center;
 }
 
 .label-form {

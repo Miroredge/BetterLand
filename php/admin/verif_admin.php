@@ -11,7 +11,7 @@
     function verif_admin(){
         if(isset($_SESSION['pseudo'])) 
         {   
-            include_once("/php/gestion_db.php");
+            include_once("../gestion_db.php");
 
             if(verif_role('Admin') or verif_role('SuperAdmin')) 
             {}
@@ -31,7 +31,7 @@
     function verif_s_admin(){
         if(isset($_SESSION['pseudo'])) 
         {   
-            include_once("/php/gestion_db.php");
+            include_once("../gestion_db.php");
 
             if(verif_role('SuperAdmin')) 
             {}

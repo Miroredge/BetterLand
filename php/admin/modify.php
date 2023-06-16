@@ -1,7 +1,7 @@
 <?php 
-    include_once("verif_admin.php");
+    include_once("./verif_admin.php");
     include_once("./gestion_db_admin.php");
-    include_once("/php/gestion_db.php");
+    include_once("../gestion_db.php");
 
     if(!isset($_SESSION)) session_start();
     

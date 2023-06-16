@@ -43,10 +43,10 @@
                     <div class="item-form">
                         <label class="label-form">Nom</label>
                         <input type="text" name="lastname" class="input-form" autocomplete="off"/>
+                    </div>
                     <div class="item-form">
                         <label class="label-form">Prénom</label>
                         <input type="text" name="firstname" class="input-form" required="false" autocomplete="off"/>
-                    </div>
                     </div>
                     <div class="item-form">
                         <label class="label-form">Sexe</label>
